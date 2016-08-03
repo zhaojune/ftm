@@ -68,23 +68,7 @@
     </table>
 
     <div align="center" style="padding-top: 20px;">
-        <input type="button" id="back" value="返回" style="border:none;font-size: 20px;background: #99BBE8;width: 150px;" onclick="Back()"/>
+        <input type="button" id="detail_back" value="返回" style="border:none;font-size: 20px;background: #99BBE8;width: 150px;" onclick="Back('任务详情')"/>
     </div>
 
 </div>
-
-<script>
-    function Back(){
-        if(!$('#tabs').tabs('exists',"任务列表管理")){
-            $('#tabs').tabs('add', {
-                title:  "任务列表管理",
-                href: './taskListManage.html',
-                closable: true
-            });
-            $('#tabs').tabs('close',"任务详情");
-        }
-        else{
-            $('#tabs').tabs('select',"任务列表管理");
-        }
-    }
-</script>

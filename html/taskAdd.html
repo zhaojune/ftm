@@ -1,0 +1,113 @@
+
+
+<div style="border-bottom: 1px solid #99BBE8;height: 2%;padding: 20px;">
+    <span style="font-size: 20px;">任务添加</span>
+</div>
+
+<div>
+    <table style="padding-top: 20px;padding-left:40px;font-size: 18px;height: 80%" cellspacing="0">
+        <table style="padding-left: 50px;font-size: 15px;">
+            <tr style="height: 50px;">
+                <td>
+                    <span>任务类型:</span>
+                </td>
+                <td style="padding-left: 50px;width: 50%;">
+                    <input id="taskType_select" class="easyui-combobox" value="下载更新" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                </td>
+                <td id="irs_title" style="padding-left: 50px;">
+                    <span>更新后是否重启终端:</span>
+                </td>
+                <td style="padding-left: 50px;">
+                    <input type="radio" name="ifrs" value="否">否
+
+                    <input style="padding-left: 10px;" type="radio" name="ifrs" value="是"/>是
+                </td>
+            </tr>
+            </table>
+        <table style="padding-left: 50px;font-size: 15px;">
+            <tr style="height: 50px;">
+                <td>
+                    <span>任务名称:</span>
+                </td>
+                <td style="padding-left: 50px;width: 40%;">
+                    <input class="easyui-textbox" id="taskName" style="font-size: 15px;color:gainsboro;width: 100%;height: 30px;"/>
+                </td>
+            </tr>
+            <tr style="height: 50px;">
+                <td>
+                    <span>开始时间:</span>
+                </td>
+                <td style="padding-left: 50px;width: 40%;">
+                    <input id="startTime" value="任务开始时间" style="color:gainsboro;width:100%;height: 30px;" class="easyui-datebox"/>
+                </td>
+                <td style="padding-left: 50px;">
+                    <span>结束时间:</span>
+                </td>
+                <td style="padding-left: 50px;width: 40%;">
+                    <input id="endTime" value="任务结束时间" style="color:gainsboro;width:100%;height: 30px;" class="easyui-datebox"/>
+                </td>
+            </tr>
+        </table>
+
+        <table style="padding-left: 50px;font-size: 15px;">
+            <tr style="height: 50px;">
+                <td>
+                    <span>执行策略:</span>
+                </td>
+                <td style="padding-left: 50px;">
+                    <input type="radio" name="ifrs" value="否">只执行一次
+                </td>
+                <td style="padding-left: 50px;">
+                    <input type="radio" name="ifrs" value="是"/>每天执行一次
+                </td >
+                <td style="padding-left: 50px;">
+                    <input type="radio" name="ifrs" value="否">每周执行一次
+                </td>
+                <td style="padding-left: 50px;">
+                    <input type="radio" name="ifrs" value="是"/>每月执行一次
+                </td>
+            </tr>
+        </table>
+        <table style="padding-left: 50px;font-size: 15px;">
+            <tr style="height: 50px;">
+                <td cosplan=“2” >
+                    <span>更新文件:</span>
+                </td>
+                <td style="padding-left: 50px">
+                    <div class="file-box">
+                        <input type='text' class="easyui-textbox" value="请添加需要的文件" name='textfield' id='textfield' class='txt' />
+                        <input type='button' class='btn' value='浏览' />
+                        <input type="file" name="fileField" class="file" id="fileField" size="28" onchange="document.getElementById('textfield').value=this.value" />
+                    </div>
+                </td>
+            </tr>
+            <tr style="height: 50px;">
+                <td >
+                    <span>更新终端:</span>
+                </td>
+                <td style="padding-left: 50px;width: 90%">
+                    <input id="terminalupdate_select" searcher="selectTerminal" class="easyui-searchbox" value="请选择执行任务的终端" style="font-size: 15px;color:gainsboro;width: 600px;height: 30px;"/>
+                </td>
+            </tr>
+        </table>
+
+    </table>
+
+    <div align="center" style="padding-top: 20px;">
+        <input type="button" id="detail_back" value="返回" style="border:none;font-size: 20px;background: #99BBE8;width: 150px;" onclick="Back('任务修改')"/>
+    </div>
+
+    <div id="dd"  class="easyui-dialog" title="" closed="true" style="width:90%;height:100%;padding:5px;"></div>
+
+
+</div>
+
+<script>
+    function selectTerminal(){
+        $('#dd').dialog({
+            title:"",
+            href:'./terminalSelect.html'
+        })
+        $('#dd').window('open');
+    }
+</script>

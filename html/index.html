@@ -8,6 +8,14 @@
     <link rel="stylesheet" type="text/css" href="../js_v1/EasyUI/demo.css">
     <script type="text/javascript" src="../js_v1/EasyUI/jquery.min.js"></script>
     <script type="text/javascript" src="../js_v1/EasyUI/jquery.easyui.min.js"></script>
+    <style type="text/css">
+        body{ font-size:14px;}
+        input{ vertical-align:middle; margin:0; padding:0}
+        .file-box{ position:relative;width:100%}
+        .txt{ height:30px; border:1px solid #cdcdcd; width:90%;}
+        .btn{ background-color:#FFF; border:3px solid #1a7bc9;height:30px; width:9%;}
+        .file{ position:absolute; top:0; right: 0%; height:30px; filter:alpha(opacity:0);opacity: 0;width:9% }
+    </style>
 </head>
 <body class="easyui-layout">
     <div data-options=" region:'north'" border="false" style="height:15%;">
@@ -36,10 +44,10 @@
         <div title="终端监测" style="padding:10px;">
             <ul id="terminaltr" class="easyui-tree">
                 <!--<li style="list-style-type: none">-->
-                    <!--<a href="terminalBasicInfo.html">终端基础信息</a>-->
+                    <!--<a href="terminalBasicInfoTable.html">终端基础信息</a>-->
                 <!--</li>-->
                 <!--<li style="list-style-type: none;">-->
-                    <!--<a href="terminalSoftwareVersion.html">终端软件版本</a>-->
+                    <!--<a href="terminalSoftwareVersionTable.html">终端软件版本</a>-->
                 <!--</li>-->
             </ul>
 
@@ -96,5 +104,19 @@
             }
         }
     });
+
+    function Back(title){
+        if(!$('#tabs').tabs('exists',"任务列表管理")){
+            $('#tabs').tabs('add', {
+                title:  "任务列表管理",
+                href: './taskListManage.html',
+                closable: true
+            });
+            $('#tabs').tabs('close',title);
+        }
+        else{
+            $('#tabs').tabs('select',"任务列表管理");
+        }
+    }
 </script>
 
