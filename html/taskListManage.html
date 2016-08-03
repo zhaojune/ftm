@@ -47,10 +47,10 @@
             </span>
         </td>
         <td>
-            <span id="details" style="width: 10px;"  class="easyui-tree"/>
-            <span id="schedule" style="width: 10px;"  class="easyui-tree"></span>
-            <span id="update" style="width: 10px;"  class="easyui-tree"/>
-            <span id="delete" style="width: 10px;"  class="easyui-tree"></span>
+            <a id="details" >详情</a>
+            <a id="schedule">查看进度</a>
+            <a id="update">修改</a>
+            <a id="delete">删除</a>
         </td>
 
     </tr>
@@ -120,84 +120,21 @@
             url:'../json/task/taskState.json'
         });
 
-        $('#details').tree({
-            url: '../json/task/details.json',
-            onClick: function (node) {
-                if(!$('#tabs').tabs('exists',node.text)){
-                    $('#tabs').tabs('add', {
-                        title:  node.text,
-                        href: node.attributes.url,
-                        closable: true
-                    });
-                }
-                else{
-                    $('#tabs').tabs('select',node.text);
-                }
-            }
-        });
 
-        $('#schedule').tree({
-            url: '../json/task/details.json',
-            onClick: function (node) {
-                if(!$('#tabs').tabs('exists',node.text)){
-                    $('#tabs').tabs('add', {
-                        title:  node.text,
-                        href: node.attributes.url,
-                        closable: true
-                    });
-                }
-                else{
-                    $('#tabs').tabs('select',node.text);
-                }
+        $("#details").click(function () {
+            if(!$('#tabs').tabs('exists',"任务详情")){
+                $('#tabs').tabs('add', {
+                    title:  "任务详情",
+                    href: './taskDetails.html',
+                    closable: true
+                });
             }
-        });
 
-        $('#update').tree({
-            url: '../json/task/details.json',
-            onClick: function (node) {
-                if(!$('#tabs').tabs('exists',node.text)){
-                    $('#tabs').tabs('add', {
-                        title:  node.text,
-                        href: node.attributes.url,
-                        closable: true
-                    });
-                }
-                else{
-                    $('#tabs').tabs('select',node.text);
-                }
+            else{
+                $('#tabs').tabs('select',"任务详情");
             }
-        });
 
-        $('#delete').tree({
-            url: '../json/task/details.json',
-            onClick: function (node) {
-                if(!$('#tabs').tabs('exists',node.text)){
-                    $('#tabs').tabs('add', {
-                        title:  node.text,
-                        href: node.attributes.url,
-                        closable: true
-                    });
-                }
-                else{
-                    $('#tabs').tabs('select',node.text);
-                }
-            }
         });
-
-//        $("#details").click(function () {
-//            if(!$('#tabs').tabs('exists',"任务详情")){
-//                $('#tabs').tabs('add', {
-//                    title:  "任务详情",
-//                    href: './taskDetails.html',
-//                    closable: true
-//                });
-//            }
-//
-//            else{
-//                $('#tabs').tabs('select',"任务详情");
-//            }
-//
-//        });
 
 
     })
