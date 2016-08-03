@@ -1,0 +1,14 @@
+[{
+  "id":1,
+  "text":"终端基础信息",
+  "attributes":{
+    "url":"/terminalBasicInfo.html"
+  }
+},{
+  "id":2,
+  "text":"终端软件版本",
+  "attributes":{
+    "url":"./terminalSoftwareVersion.html"
+  }
+
+}]
