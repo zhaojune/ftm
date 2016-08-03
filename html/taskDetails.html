@@ -1,0 +1,90 @@
+
+<div style="border-bottom: 1px solid #99BBE8;height: 2%;padding: 20px;">
+    <span style="font-size: 20px;">任务详情</span>
+</div>
+
+<div>
+    <table style="padding-top: 20px;padding-left:40px;font-size: 18px;height: 80%" cellspacing="0">
+        <tr style="height: 50px;">
+            <td>
+                <span>任务类型:</span>
+            </td>
+            <td style="padding-left: 50px;">
+                <span id="taskType">下载SOK图片</span>
+            </td>
+            <td id="irs_title">
+                <span>更新后是否重启终端:</span>
+            </td>
+            <td id="irs_content" style="padding-left: 50px;">
+                <span id="ifRestart">否</span>
+            </td>
+        </tr>
+        <tr style="height: 50px;">
+            <td>
+                <span>任务名称:</span>
+            </td>
+            <td style="padding-left: 50px;">
+                <span id="taskName">更新SOK终端图片信息</span>
+            </td>
+        </tr>
+        <tr style="height: 50px;">
+            <td>
+                <span>开始时间:</span>
+            </td>
+            <td style="padding-left: 50px;">
+                <span id="startName">2017.8.1</span>
+            </td>
+            <td>
+                <span>结束时间:</span>
+            </td>
+            <td style="padding-left: 50px;">
+                <span id="endTime">2017.9.1</span>
+            </td>
+        </tr>
+        <tr style="height: 50px;">
+            <td>
+                <span>执行策略:</span>
+            </td>
+            <td style="padding-left: 50px;">
+                <span id="strategy">只执行一次</span>
+            </td>
+        </tr>
+        <tr style="height: 50px;">
+            <td>
+                <span>更新文件:</span>
+            </td>
+            <td style="padding-left: 50px;">
+                <span id="updateFile">文件名称1</span>
+            </td>
+        </tr>
+        <tr style="height: 50px;">
+            <td>
+                <span>更新终端:</span>
+            </td>
+            <td style="padding-left: 50px;">
+                <span id="updateTerminal">SOK1</span>
+            </td>
+        </tr>
+    </table>
+
+    <div align="center" style="padding-top: 20px;">
+        <input type="button" id="back" value="返回" style="border:none;font-size: 20px;background: #99BBE8;width: 150px;" onclick="Back()"/>
+    </div>
+
+</div>
+
+<script>
+    function Back(){
+        if(!$('#tabs').tabs('exists',"任务列表管理")){
+            $('#tabs').tabs('add', {
+                title:  "任务列表管理",
+                href: './taskListManage.html',
+                closable: true
+            });
+            $('#tabs').tabs('close',"任务详情");
+        }
+        else{
+            $('#tabs').tabs('select',"任务列表管理");
+        }
+    }
+</script>

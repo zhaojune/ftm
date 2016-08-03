@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>RFTM系统</title>
+    <link rel="stylesheet" type="text/css" href="../js_v1/EasyUI/themes/default/easyui.css">
+    <link rel="stylesheet" type="text/css" href="../js_v1/EasyUI/themes/icon.css">
+    <link rel="stylesheet" type="text/css" href="../js_v1/EasyUI/demo.css">
+    <script type="text/javascript" src="../js_v1/EasyUI/jquery.min.js"></script>
+    <script type="text/javascript" src="../js_v1/EasyUI/jquery.easyui.min.js"></script>
+</head>
+<body class="easyui-layout">
+    <div data-options=" region:'north'" border="false" style="height:15%;">
+    <div style="background:#4b72a4;width: 100%;height: 85%;">
+        <div style="padding-top: 2%;">
+            <span style="font-size: 30px;color: white; font-family:'Sinhala Sangam MN';padding-left: 3%;">RFTM</span>
+            <span style="font-size: 30px;color: white; font-family:Curlz MT;">系统</span>
+            <span style="font-size:15px;padding-left: 70%;font-family:Curlz MT;color: white;">欢迎您 : </span>
+            <span id="userName" style="font-size:15px;font-family:Curlz MT;color: white;">sam</span>
+            <span style="font-size:15px;font-family:Curlz MT;color: white;">
+                <a href="#"> [退出]</a>
+            </span>
+        </div>
+    </div>
+    <div style="width: 100%;"></div>
+</div>
+    <div region="west" border="false" split="true" title="菜单导航" style="background:#aac5e7;height: 75%;width: 20%;">
+    <div class="easyui-accordion" border="false" data-options="multiple:true" style="width:100%;height1:5%;background:#aac5e7;">
+        <div title="任务管理" style="overflow:auto;padding:10px;">
+            <ul id="tasktr"  class="easyui-tree">
+                <!--<li style="list-style-type: none">-->
+                    <!--<a href="taskListManage.html">任务列表管理</a>-->
+                <!--</li>-->
+            </ul>
+        </div>
+        <div title="终端监测" style="padding:10px;">
+            <ul id="terminaltr" class="easyui-tree">
+                <!--<li style="list-style-type: none">-->
+                    <!--<a href="terminalBasicInfo.html">终端基础信息</a>-->
+                <!--</li>-->
+                <!--<li style="list-style-type: none;">-->
+                    <!--<a href="terminalSoftwareVersion.html">终端软件版本</a>-->
+                <!--</li>-->
+            </ul>
+
+        </div>
+    </div>
+
+</div>
+    <div data-options="region:'center'" style="background:white;height: 75%;" border="false">
+    <div  style="float:left;width:1%;height:99%;" ></div>
+    <div  style="float:right;width:98%;height:99.5%;border:1px;border-style: solid;border-color:#aac5e7;" >
+        <div class="easyui-tabs" id="tabs" style="width:100%;height:545px;">
+            <div align="center" style="padding-top: 20%;font-size: 65px;color: #95B8E7;font-family: 'Arial Black';">welcome</div>
+        </div>
+    </div>
+</div>
+    <div data-options="region:'south' " style="height:10%;background: #d7ebf9;" border="false">
+    <div style="height:20%;background: white;"></div>
+    <div style="height:80%;">
+        <div align="center" style="font-size: 18px;padding-top: 2%;font-family:Curlz MT;">技术支持 : 非码科技</div>
+    </div>
+</div>
+</body>
+</html>
+
+<script>
+    $('#tasktr').tree({
+        url: '../json/task/menu.json',
+        onClick: function (node) {
+            if(!$('#tabs').tabs('exists',node.text)){
+                $('#tabs').tabs('add', {
+                    title:  node.text,
+                    href: node.attributes.url,
+                    closable: true
+                });
+            }
+            else{
+                $('#tabs').tabs('select',node.text);
+            }
+        }
+    });
+
+    $('#terminaltr').tree({
+        url: '../json/terminal/menu.json',
+        onClick: function (node) {
+            if(!$('#tabs').tabs('exists',node.text)){
+                $('#tabs').tabs('add', {
+                    title:  node.text,
+                    href: node.attributes.url,
+                    closable: true
+                });
+            }
+            else{
+                $('#tabs').tabs('select',node.text);
+            }
+        }
+    });
+</script>
+
