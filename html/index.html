@@ -5,7 +5,7 @@
     <title>RFTM系统</title>
     <link rel="stylesheet" type="text/css" href="../js_v1/EasyUI/themes/default/easyui.css">
     <link rel="stylesheet" type="text/css" href="../js_v1/EasyUI/themes/icon.css">
-    <link rel="stylesheet" type="text/css" href="../js_v1/EasyUI/demo.css">
+    <!--<link rel="stylesheet" type="text/css" href="../js_v1/EasyUI/demo.css">-->
     <script type="text/javascript" src="../js_v1/EasyUI/jquery.min.js"></script>
     <script type="text/javascript" src="../js_v1/EasyUI/jquery.easyui.min.js"></script>
 </head>
@@ -90,7 +90,7 @@
         if(!$('#tabs').tabs('exists',"任务列表管理")){
             $('#tabs').tabs('add', {
                 title:  "任务列表管理",
-                href: './taskListManage.html',
+                href: './task/taskListManage.html',
                 closable: true
             });
             $('#tabs').tabs('close',title);

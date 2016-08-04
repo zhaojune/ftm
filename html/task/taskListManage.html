@@ -1,0 +1,131 @@
+<table id="taskList" cellspacing="0" toolbar="#taskListtb" cellpadding="0" border="false" style="height:70%;width: 100%;">
+    <thead>
+    <tr>
+        <th field="tkNum" width="50" align="center">序号</th>
+        <th field="tkName" width="100" align="center">任务名称</th>
+        <th field="tkStartTime" width="100" align="center">任务开始时间</th>
+        <th field="tkEndTime" width="100" align="center">任务结束时间</th>
+        <th field="tkCreator" width="100" align="center">创建人</th>
+        <th field="tkCreateTime" width="100" align="center">创建时间</th>
+        <th field="tkSchedule" width="100" align="center">进度</th>
+        <th field="tkOperation" width="160" align="center">操作</th>
+
+    </tr>
+    </thead>
+
+    <!--样例输入-->
+    <tbody>
+    <tr>
+        <td>01</td>
+        <td>
+            <span>上传到服务器
+            </span>
+        </td>
+        <td>
+            <span>2017-7-6
+
+            </span>
+        </td>
+        <td>
+            <span>2017-8-1
+
+            </span>
+        </td>
+        <td>
+            <span>june
+
+            </span>
+        </td>
+        <td>
+            <span>2017-6-1
+
+            </span>
+        </td>
+        <td>
+            <span>已完成
+
+            </span>
+        </td>
+        <td>
+            <a id="details_link" onclick="taskListbtnJump('任务详情','./task/taskDetails.html')">详情</a>
+            <a id="schedule_link" onclick="taskListbtnJump('任务进度','./task/taskSchedule.html')">查看进度</a>
+            <a id="update_link" onclick="taskListbtnJump('任务修改','./task/taskAdd.html')">修改</a>
+            <a id="delete_link" onclick="">删除</a>
+        </td>
+
+    </tr>
+    </tbody>
+<!--<结束>-->
+
+</table>
+
+<div id="taskListtb" style="padding-left:70px;padding-top:20px;height: 20%;font-size: 15px;">
+    <div style="height: 50%;">
+        <label>
+            <input id="taskListSearchName_input" class="easyui-textbox" data-options="prompt:'请输入任务名称'" style="border:1px solid #b7d2ff;color:gainsboro;width: 150px;height: 30px;"/>
+        </label>
+
+        <label style="padding-left: 70px;width: 20%;height: 100%;">
+            <input id="taskListSearchStartTime_input" value="任务开始时间" style="color:gainsboro;width:150px;height: 30px;" class="easyui-datebox"/>
+        </label>
+        <span style="padding-left: 20px;">&nbsp;至&nbsp;</span>
+        <label style="padding-left: 20px;">
+            <input id="taskListSearchEndTime_input" value="任务结束时间" style="font-size: 15px;color:gainsboro;width:150px;height: 30px;" class="easyui-datebox"/>
+        </label>
+
+        <label style="padding-left:70px;width: 40%;">
+            <input id="taskListSearchState_input"  class="easyui-combobox"  data-options="prompt:'任务状态'" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
+        </label>
+
+    </div>
+
+    <div>
+        <a id="TaskListSearch_btn" style="background: #99BBE8;height: 100%;width: 10%;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
+        <a id="TasksDelete_btn" style="background: #99BBE8;height: 100%;width: 10%;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">批量删除</a>
+        <a id="TaskAdd_btn" onclick="taskListbtnJump('任务添加','./task/taskAdd.html')" style="background: #99BBE8;height: 100%;width: 10%;color: black;" class="easyui-linkbutton" plain="true">添加任务</a>
+    </div>
+</div>
+
+<script>
+        $('#taskList').datagrid({
+            fitColumns:true,
+            nowrap: false,
+            striped: true,
+            border: true,
+            collapsible:false,//是否可折叠的
+            fit: true,//自动大小
+            remoteSort:false,
+            idField:'fldId',
+            singleSelect:false,//是否单选
+            pagination:true,//分页控件
+            rownumbers:false//行号
+        });
+
+        var p = $('#taskList').datagrid('getPager');
+        $(p).pagination({
+            pageSize: 10,
+            pageList: [5,10,15],
+            beforePageText: '',
+            afterPageText: '',
+            displayMsg: '共 {total} 条记录'
+        });
+
+        $('#taskListSearchState_input').combobox({
+            valueField:'id',
+            textField:'text',
+            url:'../json/task/taskState.json'
+        });
+
+        function taskListbtnJump(title,url){
+            if(!$('#tabs').tabs('exists',title)){
+                $('#tabs').tabs('add', {
+                    title:  title,
+                    href: url,
+                    closable: true
+                });
+            }
+            else{
+                $('#tabs').tabs('select',title);
+            }
+        }
+</script>

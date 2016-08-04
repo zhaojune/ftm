@@ -74,7 +74,7 @@
                     <span>更新文件:</span>
                 </td>
                 <td style="padding-left: 50px;width: 90%;position:relative;">
-                    <input class="easyui-textbox" id="updateFile_input" style="font-size: 15px;color:gainsboro;width: 90%;height: 30px;"/>
+                    <input class="easyui-textbox" id="updateFile_input" data-options="prompt:'请添加需要更新的文件'" style="font-size: 15px;color:gainsboro;width: 90%;height: 30px;"/>
                     <input type='button'  value='浏览' style="background-color:#FFF; border:1px solid #1a7bc9;height:30px; width:9%;" />
                     <input type="file" name="fileField" id="fileField"
                      style="position:absolute; top:10px; right: 0%; height:30px; filter:alpha(opacity:0);opacity: 0;background:black;width:10%;" onchange="$('#updateFile_input').textbox('setValue',this.value)"/>
@@ -88,7 +88,7 @@
                     <span>更新终端:</span>
                 </td>
                 <td style="padding-left: 50px;width: 90%;position:relative;">
-                    <input id="terminalupdate_select" searcher="selectTerminal" class="easyui-searchbox" value="请选择执行任务的终端" style="font-size: 15px;color:gainsboro;width: 100%;height: 30px;"/>
+                    <input id="terminalupdate_select" searcher="selectTerminal" class="easyui-searchbox" data-options="prompt:'请选择执行任务的终端'" style="font-size: 15px;color:gainsboro;width: 100%;height: 30px;"/>
                 </td>
             </tr>
         </table>
@@ -96,7 +96,11 @@
     </table>
 
     <div align="center" style="padding-top: 20px;">
-        <input type="button" id="detail_back" value="返回" style="border:none;font-size: 20px;background: #99BBE8;width: 150px;" onclick="Back('任务修改')"/>
+        <input type="button" id="ta_add" value="确定创建" style="border:none;font-size: 15px;background: #99BBE8;width: 150px;" onclick="Back('任务修改')"/>
+        <input type="button" id="ta_addTask" value="确定并创建新任务" style="border:none;font-size:15px;background: #99BBE8;width: 150px;" onclick="Back('任务修改')"/>
+        <input type="button" id="ta_resst" value="重置" style="border:none;font-size: 15px;background: #99BBE8;width: 150px;" onclick="Back('任务修改')"/>
+
+        <input type="button" id="ta_back" value="返回" style="border:none;font-size: 15px;background: #99BBE8;width: 150px;" onclick="Back('任务修改')"/>
     </div>
 
     <div id="selectTerminalDialog"  class="easyui-dialog" title="" closed="true" style="width:90%;height:100%;padding:5px;"></div>
@@ -109,7 +113,7 @@
     function selectTerminal(){
         $('#selectTerminalDialog').dialog({
             title:"",
-            href:'./terminalSelect.html'
+            href:'./terminal/terminalSelect.html'
         });
         $('#selectTerminalDialog').window('open');
     }

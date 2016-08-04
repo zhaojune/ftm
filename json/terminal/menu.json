@@ -6,13 +6,13 @@
       {
         "text":"信息列表统计",
         "attributes":{
-          "url":"./terminalBasicInfoTable.html"
+          "url":"./terminal/terminalBasicInfoTable.html"
         }
       },
       {
         "text":"信息图表统计",
         "attributes":{
-          "url":"./terminalBasicInfoChart.html"
+          "url":"./terminal/terminalBasicInfoChart.html"
         }
       }]
   },
@@ -23,13 +23,13 @@
     {
       "text":"版本列表统计",
       "attributes":{
-        "url":"./terminalSoftwareVersionTable.html"
+        "url":"./terminal/terminalSoftwareVersionTable.html"
       }
     },
     {
       "text":"版本图表统计",
       "attributes":{
-        "url":"./terminalSoftwareVersionChart.html"
+        "url":"./terminal/terminalSoftwareVersionChart.html"
       }
     }]
   }

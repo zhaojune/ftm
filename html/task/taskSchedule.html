@@ -9,13 +9,13 @@
                 <span>任务类型:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="taskType">下载SOK图片</span>
+                <span id="scheduleTaskType">下载SOK图片</span>
             </td>
             <td id="irs_title">
                 <span>更新后是否重启终端:</span>
             </td>
             <td id="irs_content" style="padding-left: 50px;">
-                <span id="ifRestart">否</span>
+                <span id="scheduleIfRestart">否</span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -23,7 +23,7 @@
                 <span>任务名称:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="taskName">更新SOK终端图片信息</span>
+                <span id="scheduleTaskName">更新SOK终端图片信息</span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -31,13 +31,13 @@
                 <span>开始时间:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="startName">2017.8.1</span>
+                <span id="scheduleStartName">2017.8.1</span>
             </td>
             <td>
                 <span>结束时间:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="endTime">2017.9.1</span>
+                <span id="scheduleEndTime">2017.9.1</span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -45,7 +45,7 @@
                 <span>执行策略:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="strategy">只执行一次</span>
+                <span id="scheduleStrategy">只执行一次</span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -53,7 +53,7 @@
                 <span>更新文件:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="updateFile">文件名称1</span>
+                <span id="scheduleUpdateFile">文件名称1</span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -61,7 +61,7 @@
                 <span>任务进度:</span>
             </td>
             <td style="padding-left: 50px;">
-                <div id="p" class="easyui-progressbar" data-options="value:80,text:'已完成80%'" style="width:400px;"></div>
+                <div id="schedulePbar" class="easyui-progressbar" data-options="value:80,text:'已完成80%'" style="width:400px;"></div>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -123,21 +123,21 @@
     <div id="sch_tb" style="padding-left:10px;padding-top:20px;padding-bottom:10px;font-size: 15px;">
         <div style="height: 50%;">
             <label style="padding-left:10px;width: 20%;">
-                <input id="partionCompany_select" class="easyui-combobox" value="选择分公司" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
+                <input id="schedulePartionCompany_select" class="easyui-combobox" data-options="prompt:'选择分公司'" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
             </label>
             <label style="padding-left:10px;width: 20%;">
-                <input id="store_select" class="easyui-combobox" value="选择门店" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
+                <input id="scheduleStore_select" class="easyui-combobox" data-options="prompt:'选择门店'" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
             </label>
             <label style="padding-left:10px;width: 20%;">
-                <input id="terminalType_select" class="easyui-combobox" value="选择终端类型" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
-            </label>
-
-            <label style="padding-left:10px;width: 20%;">
-                <input id="terminalName_input" class="easyui-textbox" value="输入终端名称" style="border:1px solid #b7d2ff;color:gainsboro;width: 150px;height: 30px;"/>
+                <input id="scheduleTerminalType_select" class="easyui-combobox" data-options="prompt:'选择终端类型'" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
             </label>
 
             <label style="padding-left:10px;width: 20%;">
-                <input id="terminalNo_input" class="easyui-textbox" value="输入终端编号" style="border:1px solid #b7d2ff;color:gainsboro;width: 150px;height: 30px;"/>
+                <input id="scheduleTerminalName_input" class="easyui-textbox" data-options="prompt:'输入终端名称'" style="border:1px solid #b7d2ff;color:gainsboro;width: 150px;height: 30px;"/>
+            </label>
+
+            <label style="padding-left:10px;width: 20%;">
+                <input id="scheduleTerminalNo_input" class="easyui-textbox" data-options="prompt:'输入终端编号'" style="border:1px solid #b7d2ff;color:gainsboro;width: 150px;height: 30px;"/>
             </label>
 
             <label style="padding-left:10px;">
