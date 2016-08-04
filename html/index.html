@@ -8,14 +8,6 @@
     <link rel="stylesheet" type="text/css" href="../js_v1/EasyUI/demo.css">
     <script type="text/javascript" src="../js_v1/EasyUI/jquery.min.js"></script>
     <script type="text/javascript" src="../js_v1/EasyUI/jquery.easyui.min.js"></script>
-    <style type="text/css">
-        body{ font-size:14px;}
-        input{ vertical-align:middle; margin:0; padding:0}
-        .file-box{ position:relative;width:100%}
-        .txt{ height:30px; border:1px solid #cdcdcd; width:90%;}
-        .btn{ background-color:#FFF; border:3px solid #1a7bc9;height:30px; width:9%;}
-        .file{ position:absolute; top:0; right: 0%; height:30px; filter:alpha(opacity:0);opacity: 0;width:9% }
-    </style>
 </head>
 <body class="easyui-layout">
     <div data-options=" region:'north'" border="false" style="height:15%;">
@@ -35,21 +27,10 @@
     <div region="west" border="false" split="true" title="菜单导航" style="background:#aac5e7;height: 75%;width: 20%;">
     <div class="easyui-accordion" border="false" data-options="multiple:true" style="width:100%;height1:5%;background:#aac5e7;">
         <div title="任务管理" style="overflow:auto;padding:10px;">
-            <ul id="tasktr"  class="easyui-tree">
-                <!--<li style="list-style-type: none">-->
-                    <!--<a href="taskListManage.html">任务列表管理</a>-->
-                <!--</li>-->
-            </ul>
+            <ul id="tasktr"  class="easyui-tree"></ul>
         </div>
         <div title="终端监测" style="padding:10px;">
-            <ul id="terminaltr" class="easyui-tree">
-                <!--<li style="list-style-type: none">-->
-                    <!--<a href="terminalBasicInfoTable.html">终端基础信息</a>-->
-                <!--</li>-->
-                <!--<li style="list-style-type: none;">-->
-                    <!--<a href="terminalSoftwareVersionTable.html">终端软件版本</a>-->
-                <!--</li>-->
-            </ul>
+            <ul id="terminaltr" class="easyui-tree"></ul>
 
         </div>
     </div>
@@ -59,7 +40,7 @@
     <div  style="float:left;width:1%;height:99%;" ></div>
     <div  style="float:right;width:98%;height:99.5%;border:1px;border-style: solid;border-color:#aac5e7;" >
         <div class="easyui-tabs" id="tabs" style="width:100%;height:545px;">
-            <div align="center" style="padding-top: 20%;font-size: 65px;color: #95B8E7;font-family: 'Arial Black';">welcome</div>
+            <div align="center" title="菜单导航" style="padding-top: 20%;font-size: 65px;color: #95B8E7;font-family: 'Arial Black';">welcome</div>
         </div>
     </div>
 </div>

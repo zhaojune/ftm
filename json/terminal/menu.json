@@ -1,23 +1,23 @@
 [
   {
-  "id":1,
-  "text":"终端基础信息",
-  "children":[
-    {
-      "text":"信息列表统计",
-      "attributes":{
-        "url":"/terminalBasicInfoTable.html"
-      }
-    },
-    {
-      "text":"信息图表统计",
-      "attributes":{
-        "url":"/terminalBasicInfoChart.html"
-      }
-    }]
-
-  },{
-  "id":2,
+    "id":"terminalBasic",
+    "text":"终端基础信息",
+    "children":[
+      {
+        "text":"信息列表统计",
+        "attributes":{
+          "url":"./terminalBasicInfoTable.html"
+        }
+      },
+      {
+        "text":"信息图表统计",
+        "attributes":{
+          "url":"./terminalBasicInfoChart.html"
+        }
+      }]
+  },
+  {
+  "id":"terminalVersion",
   "text":"终端软件版本",
   "children":[
     {
@@ -32,5 +32,5 @@
         "url":"./terminalSoftwareVersionChart.html"
       }
     }]
-
-}]
+  }
+]

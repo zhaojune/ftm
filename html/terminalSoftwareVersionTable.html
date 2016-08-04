@@ -1,0 +1,165 @@
+
+
+<table id="selectTerminalTable"  cellspacing="0" toolbar="#selectTerminal_tab" cellpadding="0" border="false" style="height:100%;width: 100%;">
+                <thead>
+                <tr style="font-size: 15px;">
+                    <th field="tkNum" width="11%" align="center" style="font-size: 20px;">终端名称</th>
+                    <th field="tkName" width="11%" align="center">终端编号</th>
+                    <th field="tkStartTime" width="11%" align="center">所属门店</th>
+                    <th field="tkEndTime" width="11%" align="center">所属分公司</th>
+                    <th field="tkCreator" width="11%" align="center">NP6</th>
+                    <th field="tkCreateTime" width="11%" align="center">NP6 APP</th>
+                    <th field="tkSchedule" width="11%" align="center">SOK图片</th>
+                    <th field="tkOperation" width="11%" align="center">自有软件</th>
+                    <th field="tkOperation" width="11%" align="center">键位</th>
+
+                </tr>
+                </thead>
+
+                <!--样例输入-->
+                <tbody>
+                <tr>
+                    <td>SOK1</td>
+                    <td>
+            <span>WJC001
+            </span>
+                    </td>
+                    <td>
+            <span>SOK
+
+            </span>
+                    </td>
+                    <td>
+            <span>五角场店
+
+            </span>
+                    </td>
+                    <td>
+            <span>上海分公司
+
+            </span>
+                    </td>
+                    <td>
+            <span>v1.0
+
+            </span>
+                    </td>
+                    <td>
+            <span>v1.0
+
+            </span></td>
+                    <td> <span>v1.0
+
+            </span></td>
+                    <td>   <span>v1.0
+
+            </span></td>
+                    <td>   <span>v1.0
+
+            </span>
+                    </td>
+
+
+                </tr>
+                </tbody>
+                <!--<结束>-->
+
+            </table>
+
+
+<div id="selectTerminal_tab" style="padding-left:10px;padding-top:10px;height: 40%;font-size: 15px;">
+                <div style="height: 50%;">
+                    <table style="padding-left: 10px;height: 10%;width: 95%">
+                        <tr>
+                            <td>
+                                <input id="partionCompany_select" class="easyui-combobox" value="选择分公司" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                            </td>
+                            <td style="padding-left: 50px;">
+                                <input id="store_select" class="easyui-combobox" value="选择门店" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                            </td>
+                            <td style="padding-left: 50px;">
+                                <input id="terminalType_select" class="easyui-combobox" value="选择终端类型" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                            </td>
+
+                            <td style="padding-left: 50px;">
+                                <input id="type_select" class="easyui-combobox" value="选择状态" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                            </td>
+                        </tr>
+                        <tr >
+                            <td style="padding-top: 10px;">
+                                <input id="terminalName_input" class="easyui-textbox" value="输入终端名称" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+
+                            </td>
+                            <td style="padding-left: 50px;padding-top: 10px;">
+                                <input id="terminalNo_input" class="easyui-textbox" value="输入终端编号" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                            </td>
+                            <td style="padding-left: 50px;padding-top: 10px;">
+                                <input id="lagerMemoryUseRate" class="easyui-combobox" value="选择NP6版本" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                            </td>
+                            <td style="padding-left: 50px;padding-top: 10px;">
+                                <input id="smallerMemoryUseRate" class="easyui-combobox" value="选择NP6 APP版本" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 10px;">
+                                <input id="lagerCPUUseRate" class="easyui-combobox" value="选择SOK图片版本" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                            </td>
+                            <td style="padding-left: 50px;padding-top: 10px;">
+                                <input id="smallerCPUUseRate" class="easyui-combobox" value="自由软件版本" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                            </td>
+                            <td style="padding-left: 50px;padding-top: 10px;">
+                                <input id="lagerDiskUseRate" class="easyui-combobox" value="键位版本" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                            </td>
+                        </tr>
+                    </table>
+
+                </div>
+
+                <div style="padding-top: 40px;padding-left: 10px;">
+                        <span style="width: 20%;">
+                            <a style="background: #99BBE8;height: 30px;;width: 80px;color: black;" href="#" class="easyui-linkbutton"  onclick="doSearch()">搜索</a>
+                        </span>
+                        <span style="padding-left: 10px;width: 20%;">
+                           <a style="background: #99BBE8;height: 30px;width: 80px;color: black;" href="#" class="easyui-linkbutton"  onclick="doSearch()">重置</a>
+                        </span>
+
+                    <span style="padding-left: 10px;width: 20%;">
+                           <a style="background: #99BBE8;height: 30px;width: 80px;color: black;" href="#" class="easyui-linkbutton"  onclick="doSearch()">导出excel</a>
+                        </span>
+
+                </div>
+            </div>
+
+
+<script>
+
+
+    $('#selectTerminalTable').datagrid({
+        height:"90%",
+        closable:true,
+        fitColumns:true,
+        nowrap: false,
+        striped: true,
+        border: true,
+        collapsible:false,//是否可折叠的
+        fit: true,//自动大小
+        remoteSort:false,
+        idField:'fldId',
+        singleSelect:false,//是否单选
+        pagination:true,//分页控件
+        rownumbers:false,//行号,
+        selectOnCheck: true,
+        checkOnSelect: true
+    });
+
+    var p = $('#selectTerminalTable').datagrid('getPager');
+    $(p).pagination({
+        pageSize: 10,
+        pageList: [5,10,15],
+        beforePageText: '',
+        afterPageText: '',
+        displayMsg: '共 {total} 条记录'
+    });
+
+
+</script>
