@@ -99,5 +99,19 @@
             $('#tabs').tabs('select',"任务列表管理");
         }
     }
+
+    function uploadFile(){
+        $.ajax({
+            url: 'http://115.159.142.32:20002/check',
+            type: 'post',
+            dataType:"json",
+            success: function (data) {
+                console.log(data.status_code);
+            },
+            error: function (returndata) {
+                alert(returndata);
+            }
+        });
+    }
 </script>
 
