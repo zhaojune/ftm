@@ -7,6 +7,7 @@
                     <thead>
                     <tr style="font-size: 15px;">
                         <th field= 'ck'  checkbox="true"></th>
+                        <th field="tkNo" width="11%" align="center" style="font-size: 20px;">序号</th>
                         <th field="tkNum" width="11%" align="center" style="font-size: 20px;">终端名称</th>
                         <th field="tkName" width="11%" align="center">终端编号</th>
                         <th field="tkStartTime" width="11%" align="center">所属门店</th>
@@ -19,53 +20,6 @@
 
                     </tr>
                     </thead>
-
-                    <!--样例输入-->
-                    <tbody>
-                    <tr>
-                        <td>SOK1</td>
-                        <td>
-            <span>WJC001
-            </span>
-                        </td>
-                        <td>
-            <span>SOK
-
-            </span>
-                        </td>
-                        <td>
-            <span>五角场店
-
-            </span>
-                        </td>
-                        <td>
-            <span>上海分公司
-
-            </span>
-                        </td>
-                        <td>
-            <span>在线
-
-            </span>
-                        </td>
-                        <td>
-            <span>20%
-
-            </span></td>
-                           <td> <span>30%
-
-            </span></td>
-                         <td>   <span>10%
-
-            </span></td>
-                         <td>   <span>硬件序列号
-
-            </span>
-                        </td>
-
-                    </tr>
-                    </tbody>
-                    <!--<结束>-->
 
                 </table>
 
@@ -123,7 +77,7 @@
 
                     <div style="padding-top: 40px;padding-left: 10px;">
                         <span style="width: 20%;">
-                            <a style="background: #99BBE8;height: 30px;;width: 70%;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="">搜索</a>
+                            <a style="background: #99BBE8;height: 30px;;width: 70%;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="ts_searchTerminal()">搜索</a>
                         </span>
                         <span style="padding-left: 10px;width: 20%;">
                            <a style="background: #99BBE8;height: 30px;width: 72%;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="ts_reset()">重置</a>
@@ -141,7 +95,7 @@
         </div>
 
         <div align="center" style="padding-top: 20px;height: 50px;">
-            <input type="button" id="ts_sure" value="确定" style="border:none;font-size: 20px;background: #99BBE8;width: 150px;" onclick="$('#selectTerminalDialog').window('close');"/>
+            <input type="button" id="ts_sure" value="确定" style="border:none;font-size: 20px;background: #99BBE8;width: 150px;" onclick="ts_searchTerminal_sure()"/>
             <input type="button" id="ts_back" value="返回" style="border:none;font-size: 20px;background: #99BBE8;width: 150px;" onclick="$('#selectTerminalDialog').window('close');"/>
 
         </div>
@@ -182,6 +136,8 @@
             getStores();
         }
     });
+
+    let selectTerminals = {};
 
     $(function () {
         $.ajax({
@@ -264,6 +220,101 @@
         $('#tsSmallerCPUUseRate').textbox('setValue',"");
         $('#tsLagerDiskUseRate').textbox('setValue',"");
         $('#tsSmallerDiskUseRate').textbox('setValue',"");
+    }
+
+    function ts_searchTerminal(){
+
+        let grid = $('#selectTerminalTable');
+        let options = grid.datagrid('getPager').data("pagination").options;
+
+        let pageIndex = parseInt(options.pageNumber)-1;
+        let pageSize = parseInt(options.pageSize);
+
+        let componayCode = $('#tsPartionCompany_select').combobox('getValue');
+        let storeId = $('#tsStore_select').combobox('getValue');
+        let posType = $('#tsTerminalType_select').combobox('getValue');
+        let state = $('#tsType_select').combobox('getValue');
+        let postName = $('#tsTerminalName_input').textbox('getValue');
+        let posId = $('#tsTerminalNo_input').textbox('getValue');
+        let memoryUsedBegin = $('#tsLagerMemoryUseRate').textbox('getValue');
+        let memoryUsedEnd = $('#tsSmallerMemoryUseRate').textbox('getValue');
+        let cpuUsedBegin = $('#tsLagerCPUUseRate').textbox('getValue');
+        let cpuUsedEnd = $('#tsSmallerCPUUseRate').textbox('getValue');
+        let diskUsedBegin = $('#tsLagerDiskUseRate').textbox('getValue');
+        let diskUsedEnd = $('#tsSmallerDiskUseRate').textbox('getValue');
+
+        let reqDate = {
+            pageIndex:pageIndex,
+            pageSize:pageSize,
+            companyCode:componayCode,
+            storeId:storeId,
+            posType:posType,
+            state:state,
+            postName:postName,
+            posId:posId,
+            memoryUsedBegin:memoryUsedBegin,
+            memoryUsedEnd:memoryUsedEnd,
+            cpuUsedBegin:cpuUsedBegin,
+            cpuUsedEnd:cpuUsedEnd,
+            diskUsedBegin:diskUsedBegin,
+            diskUsedEnd:diskUsedEnd
+        }
+
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/pos",
+            type: 'POST',
+            contentType:"application/json",
+            data: JSON.stringify(reqDate),
+            success: function (res) {
+                console.log(res);
+                if(res.statusCode === 100){
+                    let listData = res.data.rows;
+                    let listDatas = new Array();
+                    for ( let i=0;i<parseInt(res.data.total);i++) {
+                        selectTerminals[ID] = listData[i];
+                        let rowData =  {
+                            'tkNo':listData[i].ID,
+                            //'tmName' : listData[i].ID,
+                            'tmNum' : listData[i].PosID,
+                            //'tmCompany' : listData[i].StartTime,
+                            'tmStore' : listData[i].StoreName,
+                            'tmState':listData[i].Status,
+                            'tmMemusedRate' : listData[i].MemoryUsed,
+                            'tmCPUuserRate' : listData[i].CPULoad,
+                            'tmDiskuserRate' : listData[i].DiskUsed,//??
+                            //'tmDiskNum' : listData[i].Status
+                        };
+                        listDatas.push(rowData);
+                    }
+                    $('#selectTerminalTable').datagrid('loadData',listDatas);
+
+                }
+                else{
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+    }
+
+    function  ts_searchTerminal_sure(){
+        let teRows = $('#selectTerminalTable').datagrid('getChecked');
+        let data = [];
+        let names = "";
+        for(let i in teRows){
+            data.push({"StoreID":selectTerminals[teRows.tkNo].storeId,"PosID":teRows.tmNum})
+            names+=teRows.tmName;
+            names+=",";
+        }
+        names = names.substr(0,names.length-1);
+
+        $('#terminalupdate_select').searchbox('setValue',names);
+
+        selectTerminals = data;
+        $('#selectTerminalDialog').window('close');
     }
 
 </script>

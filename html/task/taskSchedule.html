@@ -102,23 +102,6 @@
         </tr>
         </thead>
 
-        <!--样例输入-->
-        <tbody>
-        <tr>
-            <td>SOK1</td>
-            <td>WJC001</td>
-            <td>SOK</td>
-            <td>五角场店</td>
-            <td>上海分公司</td>
-            <td>v1.0</td>
-            <td>v1.0</td>
-            <td>v1.0</td>
-            <td>v1.0</td>
-            <td>v1.0</td>
-            <td>2017-5-1失败</td>
-        </tr>
-        </tbody>
-        <!--<结束>-->
     </table>
     <div id="sch_tb" style="padding-left:10px;padding-top:20px;padding-bottom:10px;font-size: 15px;">
         <div style="height: 50%;">
@@ -141,7 +124,7 @@
             </label>
 
             <label style="padding-left:10px;">
-                <a style="background: #99BBE8;height:35px;width: 100px;;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
+                <a style="background: #99BBE8;height:35px;width: 100px;;color: black;" class="easyui-linkbutton" plain="true" onclick="sch_searchTerminal()">搜索</a>
             </label>
 
         </div>
@@ -213,6 +196,150 @@
     let fileNames = currTask.FilePath.split('/');
     $('#scheduleUpdateFile').html(fileNames[fileNames.length-1]);
 
+    $("#schedulePartionCompany_select").combobox({
+        onChange: function (n,o) {
+            getsch_Stores();
+        }
+    });
+
+    let selectTerminals = {};
+
+    $(function () {
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/company",
+            type: 'GET',
+            contentType:"application/json",
+            data: {
+                partnerId:0
+            },
+            success: function (res) {
+                if(res.statusCode === 100) {
+                    //res = JSON.stringify(res);
+
+                    let data = res.company;
+                    console.log(data);
+                    let companies = [];
+                    for (let i in data) {
+                        companies.push({"text": data[i].CompanyName, "value": data[i].CompanyCode});
+                    }
+                    console.log(JSON.stringify(companies));
+                    $("#schedulePartionCompany_select").combobox('loadData', companies);
+                }
+                else{
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+
+
+    });
+
+    function getsch_Stores(){
+        let companyId = $('#tsPartionCompany_select').combobox('getValue');
+        console.log(companyId);
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/store",
+            type: 'GET',
+            contentType:"application/json",
+            data: {
+                companyCode:companyId
+            },
+            success: function (res) {
+                console.log(res);
+                if(res.statusCode === 100){
+                    // res = JSON.stringify(res);
+                    let data = res.stores;
+                    let stores = [];
+                    for(let i in data){
+                        if(data[i].CompanyCode === companyId){
+                            stores.push({ "text": data[i].StoreName, "id": data[i].StoreID });
+                        }
+                    }
+                    $("#scheduleStore_select").combobox('loadData', stores);
+                }
+                else{
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+    }
+
+    function sch_searchTerminal(){
+
+        let grid = $('#schedule_list_data');
+        let options = grid.datagrid('getPager').data("pagination").options;
+
+        let pageIndex = parseInt(options.pageNumber)-1;
+        let pageSize = parseInt(options.pageSize);
+
+        let componayCode = $('#schedulePartionCompany_select').combobox('getValue');
+        let storeId = $('#scheduleStore_select').combobox('getValue');
+        let posType = $('#scheduleTerminalType_select').combobox('getValue');
+
+        let state = $('#resultTabs').tabs('getSelected').panel('options').title;
+
+        let postName = $('#scheduleTerminalName_input').textbox('getValue');
+        let posId = $('#scheduleTerminalNo_input').textbox('getValue');
+
+        let reqDate = {
+            pageIndex:pageIndex,
+            pageSize:pageSize,
+            companyCode:componayCode,
+            storeId:storeId,
+            posType:posType,
+            state:state,
+            postName:postName,
+            posId:posId
+        };
+
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/pos",
+            type: 'POST',
+            contentType:"application/json",
+            data: JSON.stringify(reqDate),
+            success: function (res) {
+                console.log(res);
+                if(res.statusCode === 100){
+                    let listData = res.data.rows;
+                    let listDatas = new Array();
+                    for ( let i=0;i<parseInt(res.data.total);i++) {
+                        selectTerminals[ID] = listData[i];
+                        let rowData =  {
+                            //'terminalName' : listData[i].ID,
+                            'terminalNo' : listData[i].PosID,
+                            'terminalType':listData[i].Type,
+                            //'partionCompanies' : listData[i].StartTime,
+                            'stores' : listData[i].StoreName,
+                            'np6' : listData[i].Np6Version,
+                            'np6App' : listData[i].Np6ExeVersion,
+                            'sokPic' : listData[i].SOKPicVer,//??
+                            'ownSoftware' : listData[i].SelfSoft,
+                            'keyPos' : listData[i].ForkVersion
+                            //''
+                        };
+                        listDatas.push(rowData);
+                    }
+                    $('#schedule_list_data').datagrid('loadData',listDatas);
+
+                }
+                else{
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+    }
 
 
 </script>

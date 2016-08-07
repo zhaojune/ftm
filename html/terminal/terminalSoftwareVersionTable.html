@@ -1,6 +1,6 @@
 
 
-<table id="selectTerminalTable"  cellspacing="0" toolbar="#selectTerminal_tab" cellpadding="0" border="false" style="height:100%;width: 100%;">
+<table id="sv_selectTerminalTable"  cellspacing="0" toolbar="#sv_selectTerminal_tab" cellpadding="0" border="false" style="height:100%;width: 100%;">
                 <thead>
                 <tr style="font-size: 15px;">
                     <th field="tmName" width="11%" align="center" style="font-size: 20px;">终端名称</th>
@@ -19,7 +19,7 @@
             </table>
 
 
-<div id="selectTerminal_tab" style="padding-left:10px;padding-top:10px;height: 40%;font-size: 15px;">
+<div id="sv_selectTerminal_tab" style="padding-left:10px;padding-top:10px;height: 40%;font-size: 15px;">
                 <div style="height: 50%;">
                     <table style="padding-left: 10px;height: 10%;width: 95%">
                         <tr>
@@ -86,7 +86,7 @@
 <script>
 
 
-    $('#selectTerminalTable').datagrid({
+    $('#sv_selectTerminalTable').datagrid({
         height:"90%",
         closable:true,
         fitColumns:true,
@@ -104,7 +104,7 @@
         checkOnSelect: true
     });
 
-    var p = $('#selectTerminalTable').datagrid('getPager');
+    var p = $('#sv_selectTerminalTable').datagrid('getPager');
     $(p).pagination({
         pageSize: 10,
         pageList: [5,10,15],

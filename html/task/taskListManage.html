@@ -93,4 +93,19 @@
                 '<a id="delete_link" href="#" >删除</a>';
         }
 
+        //返回
+        function Back(title){
+            if(!$('#tabs').tabs('exists',"任务列表管理")){
+                $('#tabs').tabs('add', {
+                    title:  "任务列表管理",
+                    href: './task/taskListManage.html',
+                    closable: true
+                });
+                $('#tabs').tabs('close',title);
+            }
+            else{
+                $('#tabs').tabs('select',"任务列表管理");
+            }
+        }
+
 </script>

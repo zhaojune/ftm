@@ -85,7 +85,28 @@ function taskListSearch(){
 //链接跳转
 function taskListbtnJump(title,url,id){
     currTask = tasklist[id];
-    console.log(id);
+
+    if(title === "任务修改"){
+        isUpdate = true;
+        if($('#tabs').tabs('exists',"任务添加")){
+            let tab = $('#tabs').tabs('getTab',"任务添加");
+            if(tab){
+                let index = $('#tabs').tabs('getTabIndex',tab);
+                $('#tabs').tabs('close',index);
+            }
+        }
+    }
+    else if(title === "任务添加"){
+        isUpdate = false;
+        if($('#tabs').tabs('exists',"任务修改")){
+            let tab = $('#tabs').tabs('getTab',"任务修改");
+            if(tab){
+                let index = $('#tabs').tabs('getTabIndex',tab);
+                $('#tabs').tabs('close',index);
+            }
+        }
+    }
+
     if($('#tabs').tabs('exists',title)){
         let tab = $('#tabs').tabs('getTab',title);
         if(tab){
@@ -99,8 +120,6 @@ function taskListbtnJump(title,url,id){
         closable: true
     });
 
-    console.log(currTask);
-    if(title === "任务修改"){
-        isUpdate = true;
-    }
 }
+
+

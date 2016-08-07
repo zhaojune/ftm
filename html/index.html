@@ -9,6 +9,7 @@
     <script type="text/javascript" src="../js_v1/EasyUI/jquery.min.js"></script>
     <script type="text/javascript" src="../js_v1/EasyUI/jquery.easyui.min.js"></script>
     <script type="text/javascript" src="../js/task/taskListManage.js"></script>
+
 </head>
 <body class="easyui-layout">
     <div data-options=" region:'north'" border="false" style="height:15%;">
@@ -55,50 +56,39 @@
 </html>
 
 <script>
-    $('#tasktr').tree({
-        url: '../json/task/menu.json',
-        onClick: function (node) {
-            if(!$('#tabs').tabs('exists',node.text)){
-                $('#tabs').tabs('add', {
-                    title:  node.text,
-                    href: node.attributes.url,
-                    closable: true
-                });
+    $(function(){
+        $('#tasktr').tree({
+            url: '../json/task/menu.json',
+            onClick: function (node) {
+                if(!$('#tabs').tabs('exists',node.text)){
+                    $('#tabs').tabs('add', {
+                        title:  node.text,
+                        href: node.attributes.url,
+                        closable: true
+                    });
+                }
+                else{
+                    $('#tabs').tabs('select',node.text);
+                }
             }
-            else{
-                $('#tabs').tabs('select',node.text);
+        });
+
+        $('#terminaltr').tree({
+            url: '../json/terminal/menu.json',
+            onClick: function (node) {
+                if(!$('#tabs').tabs('exists',node.text)){
+                    $('#tabs').tabs('add', {
+                        title:  node.text,
+                        href: node.attributes.url,
+                        closable: true
+                    });
+                }
+                else{
+                    $('#tabs').tabs('select',node.text);
+                }
             }
-        }
+        });
     });
 
-    $('#terminaltr').tree({
-        url: '../json/terminal/menu.json',
-        onClick: function (node) {
-            if(!$('#tabs').tabs('exists',node.text)){
-                $('#tabs').tabs('add', {
-                    title:  node.text,
-                    href: node.attributes.url,
-                    closable: true
-                });
-            }
-            else{
-                $('#tabs').tabs('select',node.text);
-            }
-        }
-    });
-
-    function Back(title){
-        if(!$('#tabs').tabs('exists',"任务列表管理")){
-            $('#tabs').tabs('add', {
-                title:  "任务列表管理",
-                href: './task/taskListManage.html',
-                closable: true
-            });
-            $('#tabs').tabs('close',title);
-        }
-        else{
-            $('#tabs').tabs('select',"任务列表管理");
-        }
-    }
 </script>
 
