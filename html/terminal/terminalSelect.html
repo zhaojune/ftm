@@ -123,10 +123,10 @@
 
                     <div style="padding-top: 40px;padding-left: 10px;">
                         <span style="width: 20%;">
-                            <a style="background: #99BBE8;height: 30px;;width: 70%;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
+                            <a style="background: #99BBE8;height: 30px;;width: 70%;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="">搜索</a>
                         </span>
                         <span style="padding-left: 10px;width: 20%;">
-                           <a style="background: #99BBE8;height: 30px;width: 72%;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">重置</a>
+                           <a style="background: #99BBE8;height: 30px;width: 72%;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="ts_reset()">重置</a>
                         </span>
 
                     </div>
@@ -177,5 +177,93 @@
         displayMsg: '共 {total} 条记录'
     });
 
+    $("#tsPartionCompany_select").combobox({
+        onChange: function (n,o) {
+            getStores();
+        }
+    });
+
+    $(function () {
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/company",
+            type: 'GET',
+            contentType:"application/json",
+            data: {
+                partnerId:0
+            },
+            success: function (res) {
+                if(res.statusCode === 100) {
+                    //res = JSON.stringify(res);
+
+                    let data = res.company;
+                    console.log(data);
+                    let companies = [];
+                    for (let i in data) {
+                        companies.push({"text": data[i].CompanyName, "value": data[i].CompanyCode});
+                    }
+                    console.log(JSON.stringify(companies));
+                    $("#tsPartionCompany_select").combobox('loadData', companies);
+                }
+                else{
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+
+
+    });
+
+    function getStores(){
+        let companyId = $('#tsPartionCompany_select').combobox('getValue');
+        console.log(companyId);
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/store",
+            type: 'GET',
+            contentType:"application/json",
+            data: {
+                companyCode:companyId
+            },
+            success: function (res) {
+                console.log(res);
+                if(res.statusCode === 100){
+                   // res = JSON.stringify(res);
+                    let data = res.stores;
+                    let stores = [];
+                    for(let i in data){
+                        if(data[i].CompanyCode === companyId){
+                            stores.push({ "text": data[i].StoreName, "id": data[i].StoreID });
+                        }
+                    }
+                    $("#tsStore_select").combobox('loadData', stores);
+                }
+                else{
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+    }
+
+    function ts_reset(){
+        $('#tsPartionCompany_select').combobox('setValue',"");
+        $('#tsStore_select').combobox('setValue',"");
+        $('#tsTerminalType_select').combobox('setValue',"");
+        $('#tsType_select').combobox('setValue',"");
+        $('#tsTerminalName_input').textbox('setValue',"");
+        $('#tsTerminalNo_input').textbox('setValue',"");
+        $('#tsLagerMemoryUseRate').textbox('setValue',"");
+        $('#tsSmallerMemoryUseRate').textbox('setValue',"");
+        $('#tsLagerCPUUseRate').textbox('setValue',"");
+        $('#tsSmallerCPUUseRate').textbox('setValue',"");
+        $('#tsLagerDiskUseRate').textbox('setValue',"");
+        $('#tsSmallerDiskUseRate').textbox('setValue',"");
+    }
 
 </script>

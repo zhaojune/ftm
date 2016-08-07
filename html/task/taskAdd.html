@@ -9,7 +9,7 @@
         <table style="padding-left: 50px;font-size: 15px;">
             <tr style="height: 50px;">
                 <td>
-                    <span>任务类型:</span>
+                    <span >任务类型:</span>
                 </td>
                 <td style="padding-left: 50px;width: 49%;">
                     <input id="taskType_select" class="easyui-combobox" value="下载更新" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
@@ -18,9 +18,9 @@
                     <span>更新后是否重启终端:</span>
                 </td>
                 <td style="padding-left: 50px;">
-                    <input type="radio" checked name="ifrs" value="否">否
+                    <input type="radio" checked name="ifrs" value="0">否
 
-                    <input style="padding-left: 30px;" type="radio" name="ifrs" value="是"/>是
+                    <input style="padding-left: 30px;" type="radio" name="ifrs" value="1"/>是
                 </td>
             </tr>
             </table>
@@ -74,7 +74,7 @@
                     <span>更新文件:</span>
                 </td>
                 <td style="padding-left: 50px;width: 90%;position:relative;">
-                    <form id="updateFileInfo">
+                    <form id="updateFileInfo" >
                         <input class="easyui-textbox" id="updateFile_input" data-options="prompt:'请添加需要更新的文件'" style="font-size: 15px;color:gainsboro;width: 90%;height: 30px;"/>
                         <input type='button'  value='浏览' style="background-color:#FFF; border:1px solid #1a7bc9;height:30px; width:9%;" />
                         <input type="file" name="fileField" id="fileField"
@@ -97,9 +97,9 @@
     </table>
 
     <div align="center" style="padding-top: 20px;">
-        <input type="button" id="ta_add" value="确定创建" style="border:none;font-size: 15px;background: #99BBE8;width: 150px;" onclick="uploadFile()"/>
-        <input type="button" id="ta_addTask" value="确定并创建新任务" style="border:none;font-size:15px;background: #99BBE8;width: 150px;" onclick="Back('任务修改')"/>
-        <input type="button" id="ta_resst" value="重置" style="border:none;font-size: 15px;background: #99BBE8;width: 150px;" onclick="Back('任务修改')"/>
+        <input type="button" id="ta_add" value="确定创建" style="border:none;font-size: 15px;background: #99BBE8;width: 150px;" onclick="addOrUpdate()"/>
+        <input type="button" id="ta_addTask" value="确定并创建新任务" style="border:none;font-size:15px;background: #99BBE8;width: 150px;" disabled="disabled"/>
+        <input type="button" id="ta_resst" value="重置" style="border:none;font-size: 15px;background: #99BBE8;width: 150px;" onclick="add_reset()"/>
 
         <input type="button" id="ta_back" value="返回" style="border:none;font-size: 15px;background: #99BBE8;width: 150px;" onclick="Back('任务修改')"/>
     </div>
@@ -111,6 +111,35 @@
 
 <script>
 
+
+    $(function(){
+        if(isUpdate){
+            updateTask = currTask;
+            $('#taskType_select').val(updateTask.Type);
+            $('#taskName').val(updateTask.Name);
+            $('#startTime').val(updateTask.StartTime);
+            $('#endTime').val(updateTask.EndTime);
+
+            let ra_no = -1;
+            switch (updateTask.Strategy){
+                case "0":
+                    ra_no = 0;
+                    break;
+                case "D":
+                    ra_no = 1;
+                    break;
+                case "W":
+                    ra_no = 2;
+                    break;
+                case "M":
+                    ra_no = 3;
+                    break;
+            }
+            $("input[name='strategy_radio']").eq(ra_no).click();
+            $('#updateFile_input').val(updateTask.FilePath);
+        }
+    });
+
     function selectTerminal(){
         $('#selectTerminalDialog').dialog({
             title:"",
@@ -119,6 +148,118 @@
         $('#selectTerminalDialog').window('open');
     }
 
+    function add_reset(){
+        $('#taskType_select').combobox('setValue',"");
+        $('#taskName').textbox('setValue',"");
+//        $('#startTime').datetimebox('setValue',Date());
+//        $('#endTime').datetimebox('setValue',Date());
+        $("input[name='strategy_radio']").eq(0).click();
+        $('#updateFile_input').textbox('setValue',"");
+    }
+
+    function addOrUpdate(){
+//        {
+//            "ID":1,--唯一编号，id为空添加任务，ID>＝1更新任务
+//            "Name":"",--任务名称
+//            "Type":1,--任务类型
+//            "Descript":"",--任务描述
+//            "StartTime":"",--开始时间
+//            "EndTime":"",--结束时间
+//            "Strategy":"",--更新策略:D:每天一次,W:每周一次,M:每月一次,O,总共一次
+//            "NeedRestart":1,--是否需要重启,0:不需要,1:需要
+//            "Status":1,--任务状态
+//            " FilePath":"",--下载路径
+//            "FileHash":"",--文件hash值
+//            "FileSize":1,--文件大小
+//            "Clients ":[--pos机列表
+//            {
+//                "StoreID":1,--
+//            "PosID":1--
+//        }
+//        ],
+//            "MaxUpdateNum":1--最大同时更新设备数量
+//        }
+
+        let id = null;
+        if(isUpdate){
+            id = updateTask.ID;
+        }
+
+        let sty = "";
+        switch ($("input[name='strategy_radio']:checked").val()){
+            case "只执行一次":
+                sty="O";
+                break;
+            case "每天执行一次":
+                sty="D";
+                break;
+            case "每周执行一次":
+                sty="W";
+                break;
+            case "每月执行一次":
+                sty="M";
+                break;
+        }
+
+        let reqTask = {
+            ID:id,
+            Name:$('#taskName').val(),
+            Type:$('#taskType_select').combobox('getValue'),
+            StartTime:$('#startTime').val(),
+            EndTime:$('#endTime').val(),
+            Strategy:sty,
+            NeedRestart:parseInt($("input[name='ifrs']:checked").val()),
+            FilePath:$('#updateFile_input').val(),
+            Clients:[]
+        };
+        console.log(reqTask);
 
 
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/task",
+            type: 'POST',
+            contentType:"application/json",
+            data: JSON.stringify(reqTask),
+            success: function (res) {
+                if(res.statusCode === 100){
+                    if(isUpdate){
+                        alert("修改成功");
+                    }
+                    else{
+                        alert("添加成功");
+                    }
+                }
+                else{
+                    alert("操作失败了");
+                    console.log(res.statusCode);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/upload",
+            type: 'POST',
+            contentType:"application/json",
+            enctype:"multipart/form-data",
+            data: $('#updateFileInfo').serialize(),
+            success: function (res) {
+                if(res.statusCode === 100){
+                    alert("文件上传成功");
+                }
+                else{
+                    alert("操作失败了");
+                    console.log(res.statusCode);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+
+    }
 </script>

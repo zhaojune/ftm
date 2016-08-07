@@ -72,3 +72,31 @@
     </div>
 
 </div>
+
+<script>
+    $('#detailTaskType').html(currTask.Type);
+    $('#detailTaskName').html(currTask.Name);
+    $('#detailStartName').html(currTask.StartTime);
+    $('#detailEndTime').html(currTask.EndTime);
+
+    let sty = "";
+    switch (currTask.Strategy){
+        case "O":
+                sty="只执行一次";
+            break;
+        case "D":
+                sty="每天执行一次";
+            break;
+        case "W":
+                sty="每周执行一次";
+            break;
+        case "M":
+                sty="每月执行一次";
+            break;
+    }
+    $('#detailStrategy').html(sty);
+
+    let fileNames = currTask.FilePath.split('/');
+    $('#detailUpdateFile').html(fileNames[fileNames.length-1]);
+
+</script>

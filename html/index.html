@@ -8,6 +8,7 @@
     <!--<link rel="stylesheet" type="text/css" href="../js_v1/EasyUI/demo.css">-->
     <script type="text/javascript" src="../js_v1/EasyUI/jquery.min.js"></script>
     <script type="text/javascript" src="../js_v1/EasyUI/jquery.easyui.min.js"></script>
+    <script type="text/javascript" src="../js/task/taskListManage.js"></script>
 </head>
 <body class="easyui-layout">
     <div data-options=" region:'north'" border="false" style="height:15%;">
@@ -98,20 +99,6 @@
         else{
             $('#tabs').tabs('select',"任务列表管理");
         }
-    }
-
-    function uploadFile(){
-        $.ajax({
-            url: 'http://115.159.142.32:20002/check',
-            type: 'post',
-            dataType:"json",
-            success: function (data) {
-                console.log(data.status_code);
-            },
-            error: function (returndata) {
-                alert(returndata);
-            }
-        });
     }
 </script>
 

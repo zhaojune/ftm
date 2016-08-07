@@ -84,7 +84,7 @@
     </div>
 
 
-    <table id="schedule_list_data"   cellspacing="0" toolbar="#sch_tb" cellpadding="0" border="false" style="height:50%;width: 100%;" >
+    <table id="schedule_list_data"   cellspacing="0" toolbar="#sch_tb" cellpadding="0" border="false" style="height:545px;width: 100%;" >
         <thead>
         <tr>
             <th field="terminalName" width="10%" align="center">终端名称</th>
@@ -156,24 +156,20 @@
 
 <script>
 
-
-
-        $('#schedule_list_data').datagrid({
+    $('#schedule_list_data').datagrid({
             fitColumns:true,
             nowrap: false,
             striped: true,
             border: true,
-            collapsible:false,//是否可折叠的
-            fit: true,//自动大小
+            collapsible:false,//是否可折叠
             remoteSort:false,
             idField:'fldId',
             singleSelect:false,//是否单选
             pagination:true,//分页控件
             rownumbers:false//行号
         });
-
-        var sld = $('#schedule_list_data').datagrid('getPager');
-        $(sld).pagination({
+    var sld = $('#schedule_list_data').datagrid('getPager');
+    $(sld).pagination({
             pageSize: 10,
             pageList: [5,10,15],
             beforePageText: '',
@@ -181,9 +177,7 @@
             displayMsg: '共 {total} 条记录'
         });
 
-        let count = true;
-
-        $('#resultTabs').tabs({
+    $('#resultTabs').tabs({
             onSelect:function(title){
                 if(title !== '更新失败'){
                     $("#schedule_list_data").datagrid('hideColumn', 'failLog');
@@ -192,7 +186,35 @@
                     $("#schedule_list_data").datagrid('showColumn', 'failLog');
                 }
             }
-        })
+        });
+
+    $('#scheduleTaskType').html(currTask.Type);
+    $('#scheduleTaskName').html(currTask.Name);
+    $('#scheduleStartName').html(currTask.StartTime);
+    $('#scheduleEndTime').html(currTask.EndTime);
+
+    let sty = "";
+    switch (currTask.Strategy){
+        case "O":
+            sty="只执行一次";
+            break;
+        case "D":
+            sty="每天执行一次";
+            break;
+        case "W":
+            sty="每周执行一次";
+            break;
+        case "M":
+            sty="每月执行一次";
+            break;
+    }
+    $('#scheduleStrategy').html(sty);
+
+    let fileNames = currTask.FilePath.split('/');
+    $('#scheduleUpdateFile').html(fileNames[fileNames.length-1]);
+
+
+
 </script>
 
 

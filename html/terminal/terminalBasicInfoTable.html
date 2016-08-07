@@ -2,65 +2,18 @@
 <table id="terminalInfoTable"  cellspacing="0" toolbar="#terminalInfoTable_tab" cellpadding="0" border="false" style="height:100%;width: 100%;">
                 <thead>
                 <tr style="font-size: 15px;">
-                    <th field="tkNum" width="11%" align="center" style="font-size: 20px;">终端名称</th>
-                    <th field="tkName" width="11%" align="center">终端编号</th>
-                    <th field="tkStartTime" width="11%" align="center">所属门店</th>
-                    <th field="tkEndTime" width="11%" align="center">所属分公司</th>
-                    <th field="tkCreator" width="11%" align="center">状态</th>
-                    <th field="tkCreateTime" width="11%" align="center">内存使用率</th>
-                    <th field="tkSchedule" width="11%" align="center">CPU使用率</th>
-                    <th field="tkOperation" width="11%" align="center">硬盘使用率</th>
-                    <th field="tkOperation" width="11%" align="center">硬盘序列号</th>
+                    <th field="tmName" width="11%" align="center" style="font-size: 20px;">终端名称</th>
+                    <th field="tmNum" width="11%" align="center">终端编号</th>
+                    <th field="tmCompany" width="11%" align="center">所属门店</th>
+                    <th field="tmStore" width="11%" align="center">所属分公司</th>
+                    <th field="tmState" width="11%" align="center">状态</th>
+                    <th field="tmMemusedRate" width="11%" align="center">内存使用率</th>
+                    <th field="tmCPUuserRate" width="11%" align="center">CPU使用率</th>
+                    <th field="tmDiskuserRate" width="11%" align="center">硬盘使用率</th>
+                    <th field="tmDiskNum" width="11%" align="center">硬盘序列号</th>
 
                 </tr>
                 </thead>
-
-                <!--样例输入-->
-                <tbody>
-                <tr>
-                    <td>SOK1</td>
-                    <td>
-            <span>WJC001
-            </span>
-                    </td>
-                    <td>
-            <span>SOK
-
-            </span>
-                    </td>
-                    <td>
-            <span>五角场店
-
-            </span>
-                    </td>
-                    <td>
-            <span>上海分公司
-
-            </span>
-                    </td>
-                    <td>
-            <span>在线
-
-            </span>
-                    </td>
-                    <td>
-            <span>20%
-
-            </span></td>
-                    <td> <span>30%
-
-            </span></td>
-                    <td>   <span>10%
-
-            </span></td>
-                    <td>   <span>硬件序列号
-
-            </span>
-                    </td>
-
-                </tr>
-                </tbody>
-                <!--<结束>-->
 
             </table>
 <div id="terminalInfoTable_tab" style="padding-left:10px;padding-top:10px;height: 40%;font-size: 15px;">
@@ -116,14 +69,14 @@
 
                 <div style="padding-top: 40px;padding-left: 10px;width: 100%">
                         <span style="width: 20%;">
-                            <a style="background: #99BBE8;height: 30px;;width: 80px;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">搜索</a>
+                            <a style="background: #99BBE8;height: 30px;;width: 80px;color: black;" class="easyui-linkbutton" plain="true" onclick="searchTerminal()">搜索</a>
                         </span>
                         <span style="padding-left: 10px;width: 20%;">
-                           <a style="background: #99BBE8;height: 30px;width: 80px;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">重置</a>
+                           <a style="background: #99BBE8;height: 30px;width: 80px;color: black;" class="easyui-linkbutton" plain="true" onclick="info_reset()">重置</a>
                         </span>
 
                     <span style="padding-left: 10px;width: 20%;">
-                           <a style="background: #99BBE8;height: 30px;width: 80px;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="doSearch()">导出excel</a>
+                           <a style="background: #99BBE8;height: 30px;width: 80px;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="exportTable()">导出excel</a>
                         </span>
 
                 </div>
@@ -159,6 +112,199 @@
         afterPageText: '',
         displayMsg: '共 {total} 条记录'
     });
+
+    $("#infoPartionCompany_select").combobox({
+        onChange: function (n,o) {
+            getinfo_Stores();
+        }
+    });
+
+    $(function () {
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/company",
+            type: 'GET',
+            contentType:"application/json",
+            data: {
+                partnerId:0
+            },
+            success: function (res) {
+                if(res.statusCode === 100) {
+                    //res = JSON.stringify(res);
+
+                    let data = res.company;
+                    console.log(data);
+                    let companies = [];
+                    for (let i in data) {
+                        companies.push({"text": data[i].CompanyName, "value": data[i].CompanyCode});
+                    }
+                    console.log(JSON.stringify(companies));
+                    $("#infoPartionCompany_select").combobox('loadData', companies);
+                }
+                else{
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+
+
+    });
+
+    function getinfo_Stores(){
+        let companyId = $('#infoPartionCompany_select').combobox('getValue');
+        console.log(companyId);
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/store",
+            type: 'GET',
+            contentType:"application/json",
+            data: {
+                companyCode:companyId
+            },
+            success: function (res) {
+                console.log(res);
+                if(res.statusCode === 100){
+                    // res = JSON.stringify(res);
+                    let data = res.stores;
+                    let stores = [];
+                    for(let i in data){
+                        if(data[i].CompanyCode === companyId){
+                            stores.push({ "text": data[i].StoreName, "value": data[i].StoreID });
+                        }
+                    }
+                    $("#infoStore_select").combobox('loadData', stores);
+                }
+                else{
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+    }
+
+    function info_reset(){
+        $('#infoPartionCompany_select').combobox('setValue',"");
+        $('#infoStore_select').combobox('setValue',"");
+        $('#infoTerminalType_select').combobox('setValue',"");
+        $('#infoType_select').combobox('setValue',"");
+        $('#infoTerminalName_input').textbox('setValue',"");
+        $('#infoTerminalNo_input').textbox('setValue',"");
+        $('#infoLagerMemoryUseRate').textbox('setValue',"");
+        $('#infoSmallerMemoryUseRate').textbox('setValue',"");
+        $('#infoLagerCPUUseRate').textbox('setValue',"");
+        $('#infoSmallerCPUUseRate').textbox('setValue',"");
+        $('#infoLagerDiskUseRate').textbox('setValue',"");
+        $('#infoSmallerDiskUseRate').textbox('setValue',"");
+    }
+
+    function searchTerminal(){
+
+        let grid = $('#terminalInfoTable');
+        let options = grid.datagrid('getPager').data("pagination").options;
+
+        let pageIndex = parseInt(options.pageNumber)-1;
+        let pageSize = parseInt(options.pageSize);
+
+        let componayCode = $('#infoPartionCompany_select').combobox('getValue');
+        let storeId = $('#infoStore_select').combobox('getValue');
+        let posType = $('#infoTerminalType_select').combobox('getValue');
+        let state = $('#infoType_select').combobox('getValue');
+        let postName = $('#infoTerminalName_input').textbox('getValue');
+        let posId = $('#infoTerminalNo_input').textbox('getValue');
+        let memoryUsedBegin = $('#infoLagerMemoryUseRate').textbox('getValue');
+        let memoryUsedEnd = $('#infoSmallerMemoryUseRate').textbox('getValue');
+        let cpuUsedBegin = $('#infoLagerCPUUseRate').textbox('getValue');
+        let cpuUsedEnd = $('#infoSmallerCPUUseRate').textbox('getValue');
+        let diskUsedBegin = $('#infoLagerDiskUseRate').textbox('getValue');
+        let diskUsedEnd = $('#infoSmallerDiskUseRate').textbox('getValue');
+
+        let reqDate = {
+            pageIndex:pageIndex,
+            pageSize:pageSize,
+            componayCode:componayCode,
+            storeId:storeId,
+            posType:posType,
+            state:state,
+            postName:postName,
+            posId:posId,
+            memoryUsedBegin:memoryUsedBegin,
+            memoryUsedEnd:memoryUsedEnd,
+            cpuUsedBegin:cpuUsedBegin,
+            cpuUsedEnd:cpuUsedEnd,
+            diskUsedBegin:diskUsedBegin,
+            diskUsedEnd:diskUsedEnd
+        }
+
+
+//        {
+//            "pageIndex":1, --当前页
+//            "pageSize":10, --每页item个数
+//            "TaskId":1,    --任务id
+//            "componayCode":"123", --公司编号
+//            "storeId":1,--门店号
+//            "posType":"sc",--pos类型
+//            "state":1,--状态
+//            "posName":"test",--pos名
+//            "posId":1,--pos编号
+//            "cpuUsedBegin":1,
+//                "cpuUsedEnd":1,
+//                "memoryUsedBegin":1,
+//                "memoryUsedEnd":1,
+//                "diskUsedBegin":1,
+//                "diskUsedEnd":1,
+//                "Np6Version":"", --np6版本
+//            "Np6ExeVersion":"", --np6app版本
+//            "SysVersion":"1",--系统版本
+//            "SOKPicVer":"1",--sok版本
+//            "ForkVersion":"1",--键位版本
+//            "SelfSoft":"1"--自有软件
+//        }
+
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/pos",
+            type: 'POST',
+            contentType:"application/json",
+            data: JSON.stringify(reqDate),
+            success: function (res) {
+                console.log(res);
+                if(res.statusCode === 100){
+                    let listData = res.data.rows;
+                    let listDatas = new Array();
+                    for ( let i=0;i<parseInt(res.data.total);i++) {
+                        let rowData =  {
+                            //'tmName' : listData[i].ID,
+                            'tmNum' : listData[i].PosID,
+                            //'tmCompany' : listData[i].StartTime,
+                            'tmStore' : listData[i].StoreName,
+                            'tmState':listData[i].Status,
+                            'tmMemusedRate' : listData[i].MemoryUsed,
+                            'tmCPUuserRate' : listData[i].CPULoad,
+                            'tmDiskuserRate' : listData[i].DiskUsed,//??
+                            //'tmDiskNum' : listData[i].Status
+                        };
+                        listDatas.push(rowData);
+                    }
+
+                    $('#terminalInfoTable').datagrid('loadData',listDatas);
+
+                }
+                else{
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+    }
+
+
 
 
 </script>
