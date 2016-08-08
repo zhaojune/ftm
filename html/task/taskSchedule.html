@@ -5,17 +5,17 @@
 <div>
     <table style="padding-top: 20px;padding-left:40px;font-size: 18px;height: 80%" cellspacing="0">
         <tr style="height: 50px;">
-            <td>
+            <td style="width: 100px;">
                 <span>任务类型:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="scheduleTaskType">下载SOK图片</span>
+                <span id="scheduleTaskType"></span>
             </td>
-            <td id="irs_title">
+            <td style="padding-left: 20px;">
                 <span>更新后是否重启终端:</span>
             </td>
-            <td id="irs_content" style="padding-left: 50px;">
-                <span id="scheduleIfRestart">否</span>
+            <td id="ts_irs_content" style="padding-left: 50px;">
+                <span id="scheduleIfRestart"></span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -23,7 +23,7 @@
                 <span>任务名称:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="scheduleTaskName">更新SOK终端图片信息</span>
+                <span id="scheduleTaskName"></span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -31,13 +31,13 @@
                 <span>开始时间:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="scheduleStartName">2017.8.1</span>
+                <span id="scheduleStartName"></span>
             </td>
-            <td>
+            <td style="padding-left: 20px;">
                 <span>结束时间:</span>
             </td>
-            <td style="padding-left: 50px;">
-                <span id="scheduleEndTime">2017.9.1</span>
+            <td style="padding-left: 0px;">
+                <span id="scheduleEndTime"></span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -45,7 +45,7 @@
                 <span>执行策略:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="scheduleStrategy">只执行一次</span>
+                <span id="scheduleStrategy"></span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -53,7 +53,7 @@
                 <span>更新文件:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="scheduleUpdateFile">文件名称1</span>
+                <span id="scheduleUpdateFile"></span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -61,7 +61,7 @@
                 <span>任务进度:</span>
             </td>
             <td style="padding-left: 50px;">
-                <div id="schedulePbar" class="easyui-progressbar" data-options="value:80,text:'已完成80%'" style="width:400px;"></div>
+                <div id="schedulePbar" class="easyui-progressbar" style="width:400px;"></div>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -72,7 +72,7 @@
     </table>
 
     <div class="easyui-tabs" id="resultTabs" style="width:100%;height: 3%;">
-        <div title="已完成" >
+        <div title="已完成" onselect="true">
 
         </div>
         <div title="未完成" >
@@ -87,17 +87,16 @@
     <table id="schedule_list_data"   cellspacing="0" toolbar="#sch_tb" cellpadding="0" border="false" style="height:545px;width: 100%;" >
         <thead>
         <tr>
-            <th field="terminalName" width="10%" align="center">终端名称</th>
-            <th field="terminalNo" width="10%" align="center">终端编号</th>
-            <th field="terminalType" width="10%" align="center">终端类型</th>
-            <th field="stores" width="10%" align="center">所属门店</th>
-            <th field="partionCompanies" width="10%" align="center">所属分公司</th>
-            <th field="np6" width="10%" align="center">NP6</th>
-            <th field="np6App" width="10%" align="center">NP6 APP</th>
-            <th field="sokPic" width="10%" align="center">SOK图片</th>
-            <th field="ownSoftware" width="10%" align="center">自有软件</th>
-            <th field="keyPos" width="10%" align="center">键位</th>
-            <th field="failLog" width="10%" align="center">失败说明</th>
+            <th field="terminalNo" width="11%" align="center">终端编号</th>
+            <th field="terminalType" width="11%" align="center">终端类型</th>
+            <th field="stores" width="11%" align="center">所属门店</th>
+            <th field="partionCompanies" width="11%" align="center">所属分公司</th>
+            <th field="np6" width="11%" align="center">NP6</th>
+            <th field="np6App" width="13%" align="center">NP6 APP</th>
+            <th field="sokPic" width="11%" align="center">SOK图片</th>
+            <th field="ownSoftware" width="11%" align="center">自有软件</th>
+            <th field="keyPos" width="11%" align="center">键位</th>
+            <th field="failLog" width="11%" align="center">失败说明</th>
 
         </tr>
         </thead>
@@ -106,21 +105,21 @@
     <div id="sch_tb" style="padding-left:10px;padding-top:20px;padding-bottom:10px;font-size: 15px;">
         <div style="height: 50%;">
             <label style="padding-left:10px;width: 20%;">
-                <input id="schedulePartionCompany_select" class="easyui-combobox" data-options="prompt:'选择分公司'" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
+                <input id="schedulePartionCompany_select" editable="false" class="easyui-combobox" data-options="prompt:'选择分公司'" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
             </label>
             <label style="padding-left:10px;width: 20%;">
-                <input id="scheduleStore_select" class="easyui-combobox" data-options="prompt:'选择门店'" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
+                <input id="scheduleStore_select"  editable="false" class="easyui-combobox" data-options="prompt:'选择门店'" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
             </label>
             <label style="padding-left:10px;width: 20%;">
-                <input id="scheduleTerminalType_select" class="easyui-combobox" data-options="prompt:'选择终端类型'" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
-            </label>
-
-            <label style="padding-left:10px;width: 20%;">
-                <input id="scheduleTerminalName_input" class="easyui-textbox" data-options="prompt:'输入终端名称'" style="border:1px solid #b7d2ff;color:gainsboro;width: 150px;height: 30px;"/>
+                <input id="scheduleTerminalType_select" editable="false" class="easyui-combobox" data-options="prompt:'选择终端类型'" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
             </label>
 
             <label style="padding-left:10px;width: 20%;">
-                <input id="scheduleTerminalNo_input" class="easyui-textbox" data-options="prompt:'输入终端编号'" style="border:1px solid #b7d2ff;color:gainsboro;width: 150px;height: 30px;"/>
+                <input id="scheduleTerminalName_input" class="easyui-textbox" data-options="prompt:'输入终端名称'" editable="false" style="border:1px solid #b7d2ff;color:gainsboro;width: 150px;height: 30px;"/>
+            </label>
+
+            <label style="padding-left:10px;width: 20%;">
+                <input id="scheduleTerminalNo_input" class="easyui-numberbox" data-options="prompt:'输入终端编号'" onkeyup="this.value=this.value.replace(/\D/g,'')"  onafterpaste="this.value=this.value.replace(/\D/g,'')" style="border:1px solid #b7d2ff;color:gainsboro;width: 150px;height: 30px;"/>
             </label>
 
             <label style="padding-left:10px;">
@@ -139,62 +138,47 @@
 
 <script>
 
+//    $('#scheduleTerminalType_select').combobox({
+//        valueField:'text',
+//        textField:'text',
+//        url:'../json/terminal/terminalType.json',
+//        editable:false
+//    });
+
     $('#schedule_list_data').datagrid({
-            fitColumns:true,
-            nowrap: false,
-            striped: true,
-            border: true,
-            collapsible:false,//是否可折叠
-            remoteSort:false,
-            idField:'fldId',
-            singleSelect:false,//是否单选
-            pagination:true,//分页控件
-            rownumbers:false//行号
-        });
+        fitColumns:true,
+        nowrap: false,
+        striped: true,
+        border: true,
+        collapsible:false,//是否可折叠
+        remoteSort:false,
+        idField:'fldId',
+        singleSelect:false,//是否单选
+        pagination:true,//分页控件
+        rownumbers:false,//行号
+        onClickRow:function(rowIndex, rowData){
+            //取消选择某行后高亮
+            $('#schedule_list_data').datagrid('unselectRow', rowIndex);
+        }
+    });
     var sld = $('#schedule_list_data').datagrid('getPager');
     $(sld).pagination({
-            pageSize: 10,
-            pageList: [5,10,15],
-            beforePageText: '',
-            afterPageText: '',
-            displayMsg: '共 {total} 条记录'
-        });
+        pageSize: 10,
+        pageList: [5,10,15],
+        beforePageText: '',
+        afterPageText: ''
+    });
 
     $('#resultTabs').tabs({
-            onSelect:function(title){
-                if(title !== '更新失败'){
-                    $("#schedule_list_data").datagrid('hideColumn', 'failLog');
-                }
-                else{
-                    $("#schedule_list_data").datagrid('showColumn', 'failLog');
-                }
+        onSelect:function(title){
+            if(title !== '更新失败'){
+                $("#schedule_list_data").datagrid('hideColumn', 'failLog');
             }
-        });
-
-    $('#scheduleTaskType').html(currTask.Type);
-    $('#scheduleTaskName').html(currTask.Name);
-    $('#scheduleStartName').html(currTask.StartTime);
-    $('#scheduleEndTime').html(currTask.EndTime);
-
-    let sty = "";
-    switch (currTask.Strategy){
-        case "O":
-            sty="只执行一次";
-            break;
-        case "D":
-            sty="每天执行一次";
-            break;
-        case "W":
-            sty="每周执行一次";
-            break;
-        case "M":
-            sty="每月执行一次";
-            break;
-    }
-    $('#scheduleStrategy').html(sty);
-
-    let fileNames = currTask.FilePath.split('/');
-    $('#scheduleUpdateFile').html(fileNames[fileNames.length-1]);
+            else{
+                $("#schedule_list_data").datagrid('showColumn', 'failLog');
+            }
+        }
+    });
 
     $("#schedulePartionCompany_select").combobox({
         onChange: function (n,o) {
@@ -202,9 +186,8 @@
         }
     });
 
-    let selectTerminals = {};
-
     $(function () {
+        jQuery.support.cors = true;
         $.ajax({
             crossDomain: true,
             url: "http://115.159.142.32:20002/company",
@@ -236,11 +219,139 @@
         });
 
 
+        jQuery.support.cors = true;
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/taskinfo",
+            type: 'GET',
+            contentType: "application/json",
+            data: {
+                id: parseInt(currTaskID)
+            },
+            success: function (res) {
+                console.log(res);
+                if (res.statusCode === 100) {
+                    let currTask = res.task;
+                    $('#scheduleTaskType').html(currTask.type);
+                    $('#scheduleTaskName').html(currTask.name);
+                    $('#scheduleStartName').html(currTask.startTime);
+                    $('#scheduleEndTime').html(currTask.endTime);
+                    $('#scheduleIfRestart').html(currTask.needRestart==0?"否":"是");
+
+                    let sty = "";
+                    switch (currTask.strategy){
+                        case "O":
+                            sty="只执行一次";
+                            break;
+                        case "D":
+                            sty="每天执行一次";
+                            break;
+                        case "W":
+                            sty="每周执行一次";
+                            break;
+                        case "M":
+                            sty="每月执行一次";
+                            break;
+                    }
+                    $('#scheduleStrategy').html(sty);
+
+                    let fn = currTask.filePath;
+                    if(!fn ||fn === ""){
+                        fn = "无";
+                    }
+                    else{
+                        let fileNames = currTask.filePath.split('/');
+                        fn = fileNames[fileNames.length-1];
+                    }
+                    $('#scheduleUpdateFile').html(fn);
+
+                    let terminals = "";
+                    for(let i in currTask.pos){
+                        terminals+=currTask.pos[i].posName;
+                        terminals+=",";
+                    }
+                    terminals = terminals.substr(0,terminals.length-1);
+
+                    if(terminals === ""){
+                        terminals = "无"
+                    }
+                    $('#scheduleUpdateTerminal').html(terminals);
+
+                }
+                else {
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+
+        jQuery.support.cors = true;
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/taskschedule",
+            type: 'GET',
+            contentType: "application/json",
+            dataType:"text",
+            data: {
+                id: parseInt(currTaskID),
+                state:1
+            },
+            success:function (res){
+                console.log(res);
+                //if(res.stateCode === 100){
+                    console.log(res);
+                    $('#schedulePbar').progressbar({
+                        value:10,
+                        text:"已完成"+10+"%"
+                    });
+//                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+
+        jQuery.support.cors = true;
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/posattr",
+            type: 'POST',
+            contentType:"application/json",
+            data: JSON.stringify({
+                "attrs":["Type"]
+            }),
+            success: function (res) {
+
+                if(res.statusCode === 100){
+                    let data = res.dic;
+                    let types = [];
+                    for(let i in data.Type){
+                        types.push({"text":data.Type[i].Attr});
+                    }
+                    $('#scheduleTerminalType_select').combobox({
+                        valueField:'text',
+                        textField:'text'
+                    });
+                    $('#scheduleTerminalType_select').combobox('loadData', types);
+
+                }
+                else{
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+
     });
 
     function getsch_Stores(){
-        let companyId = $('#tsPartionCompany_select').combobox('getValue');
+        let companyId = $('#schedulePartionCompany_select').combobox('getValue');
         console.log(companyId);
+        jQuery.support.cors = true;
         $.ajax({
             crossDomain: true,
             url: "http://115.159.142.32:20002/store",
@@ -257,7 +368,7 @@
                     let stores = [];
                     for(let i in data){
                         if(data[i].CompanyCode === companyId){
-                            stores.push({ "text": data[i].StoreName, "id": data[i].StoreID });
+                            stores.push({ "text": data[i].StoreName, "value": data[i].StoreID });
                         }
                     }
                     $("#scheduleStore_select").combobox('loadData', stores);
@@ -272,22 +383,26 @@
         });
     }
 
+    let selectTerminals = {};
+
     function sch_searchTerminal(){
 
         let grid = $('#schedule_list_data');
         let options = grid.datagrid('getPager').data("pagination").options;
 
         let pageIndex = parseInt(options.pageNumber)-1;
+        if(pageIndex === -1){
+            pageIndex++;
+        }
         let pageSize = parseInt(options.pageSize);
 
-        let componayCode = $('#schedulePartionCompany_select').combobox('getValue');
-        let storeId = $('#scheduleStore_select').combobox('getValue');
-        let posType = $('#scheduleTerminalType_select').combobox('getValue');
+        let componayCode = handleNullInfo($('#schedulePartionCompany_select').combobox('getValue'));
+        let storeId = handleNullInfo($('#scheduleStore_select').combobox('getValue'));
+        let posType = handleNullInfo($('#scheduleTerminalType_select').combobox('getValue'));
 
-        let state = $('#resultTabs').tabs('getSelected').panel('options').title;
+        let state = handleNullInfo($('#resultTabs').tabs('getSelected').panel('options').title);
 
-        let postName = $('#scheduleTerminalName_input').textbox('getValue');
-        let posId = $('#scheduleTerminalNo_input').textbox('getValue');
+        let posId = parseInt($('#scheduleTerminalNo_input').textbox('getValue'));
 
         let reqDate = {
             pageIndex:pageIndex,
@@ -295,11 +410,14 @@
             companyCode:componayCode,
             storeId:storeId,
             posType:posType,
-            state:state,
-            postName:postName,
+            //state:state,
             posId:posId
         };
 
+        console.log(reqDate);
+
+
+        jQuery.support.cors = true;
         $.ajax({
             crossDomain: true,
             url: "http://115.159.142.32:20002/pos",
@@ -307,27 +425,39 @@
             contentType:"application/json",
             data: JSON.stringify(reqDate),
             success: function (res) {
-                console.log(res);
+
                 if(res.statusCode === 100){
                     let listData = res.data.rows;
                     let listDatas = new Array();
-                    for ( let i=0;i<parseInt(res.data.total);i++) {
-                        selectTerminals[ID] = listData[i];
+                    for ( let i=0;i<listData.length;i++) {
                         let rowData =  {
-                            //'terminalName' : listData[i].ID,
                             'terminalNo' : listData[i].PosID,
                             'terminalType':listData[i].Type,
-                            //'partionCompanies' : listData[i].StartTime,
+                            'partionCompanies' : listData[i].CompanyName,
                             'stores' : listData[i].StoreName,
                             'np6' : listData[i].Np6Version,
                             'np6App' : listData[i].Np6ExeVersion,
-                            'sokPic' : listData[i].SOKPicVer,//??
+                            'sokPic' : listData[i].SOKPicVer,
                             'ownSoftware' : listData[i].SelfSoft,
                             'keyPos' : listData[i].ForkVersion
-                            //''
+                            //'failLog':""
                         };
                         listDatas.push(rowData);
                     }
+                    listDatas.sort(function(a,b) {
+                        if(a.terminalNo< b.terminalNo)
+                            return -1;
+                        else if(a.terminalNo> b.terminalNo){
+                            return 1;
+                        }
+                        else{
+                            return 0;
+                        }
+                    });
+                    let p = $('#schedule_list_data').datagrid('getPager');
+                    $(p).pagination({
+                        displayMsg: '共 '+res.data.total+' 条记录'
+                    });
                     $('#schedule_list_data').datagrid('loadData',listDatas);
 
                 }
@@ -341,6 +471,16 @@
         });
     }
 
+    $('#resultTabs').tabs({
+        //border:false,
+        onSelect:function(title,index){
+            sch_searchTerminal();
+        }
+    });
+    $.parser.onComplete = function(){
+        sch_searchTerminal();
+
+    };
 
 </script>
 

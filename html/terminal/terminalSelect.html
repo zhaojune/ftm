@@ -7,16 +7,15 @@
                     <thead>
                     <tr style="font-size: 15px;">
                         <th field= 'ck'  checkbox="true"></th>
-                        <th field="tkNo" width="11%" align="center" style="font-size: 20px;">序号</th>
-                        <th field="tkNum" width="11%" align="center" style="font-size: 20px;">终端名称</th>
-                        <th field="tkName" width="11%" align="center">终端编号</th>
-                        <th field="tkStartTime" width="11%" align="center">所属门店</th>
-                        <th field="tkEndTime" width="11%" align="center">所属分公司</th>
-                        <th field="tkCreator" width="11%" align="center">状态</th>
-                        <th field="tkCreateTime" width="11%" align="center">内存使用率</th>
-                        <th field="tkSchedule" width="11%" align="center">CPU使用率</th>
-                        <th field="tkOperation" width="11%" align="center">硬盘使用率</th>
-                        <th field="tkOperation" width="11%" align="center">硬盘序列号</th>
+                        <th field="num" width="11%" align="center" style="font-size: 20px;">序号</th>
+                        <th field="tmsNo" width="11%" align="center">终端编号</th>
+                        <th field="tmsStore" width="11%" align="center">所属门店</th>
+                        <th field="tmsCompany" width="11%" align="center">所属分公司</th>
+                        <th field="tmsState" width="11%" align="center">状态</th>
+                        <th field="tmsMemUsed" width="11%" align="center">内存使用率</th>
+                        <th field="tmsCPNUsed" width="11%" align="center">CPU使用率</th>
+                        <th field="tmsDiskUsed" width="11%" align="center">硬盘使用率</th>
+                        <th field="tmsNum" width="11%" align="center">硬盘序列号</th>
 
                     </tr>
                     </thead>
@@ -29,13 +28,13 @@
                         <table style="padding-left: 10px;height: 10%;width: 95%">
                             <tr>
                                 <td>
-                                    <input id="tsPartionCompany_select" class="easyui-combobox" data-options="prompt:'选择分公司'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                    <input id="tsPartionCompany_select" editable="false" class="easyui-combobox" data-options="prompt:'选择分公司'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                                 </td>
                                 <td style="padding-left: 50px;">
-                                    <input id="tsStore_select" class="easyui-combobox" data-options="prompt:'选择门店'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                    <input id="tsStore_select" editable="false" class="easyui-combobox" data-options="prompt:'选择门店'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                                 </td>
                                 <td style="padding-left: 50px;">
-                                    <input id="tsTerminalType_select" class="easyui-combobox" data-options="prompt:'选择终端类型'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                    <input id="tsTerminalType_select" class="easyui-combobox" editable="false" data-options="prompt:'选择终端类型'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                                 </td>
 
                                 <td style="padding-left: 50px;">
@@ -44,11 +43,11 @@
                             </tr>
                             <tr >
                                 <td style="padding-top: 10px;">
-                                    <input id="tsTerminalName_input" class="easyui-textbox" data-options="prompt:'输入终端名称'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                    <input id="tsTerminalName_input" class="easyui-textbox" data-options="prompt:'输入终端名称'" editable="false" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
 
                                 </td>
                                 <td style="padding-left: 50px;padding-top: 10px;">
-                                    <input id="tsTerminalNo_input" class="easyui-textbox" data-options="prompt:'输入终端编号'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                    <input id="tsTerminalNo_input" class="easyui-numberbox" data-options="prompt:'输入终端编号'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                                 </td>
                                 <td style="padding-left: 50px;padding-top: 10px;">
                                     <input id="tsLagerMemoryUseRate" class="easyui-textbox" data-options="prompt:'>=内存使用率(%)'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
@@ -77,20 +76,15 @@
 
                     <div style="padding-top: 40px;padding-left: 10px;">
                         <span style="width: 20%;">
-                            <a style="background: #99BBE8;height: 30px;;width: 70%;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="ts_searchTerminal()">搜索</a>
+                            <a style="background: #99BBE8;height: 30px;;width: 70%;color: black;" class="easyui-linkbutton" plain="true" onclick="ts_searchTerminal()">搜索</a>
                         </span>
                         <span style="padding-left: 10px;width: 20%;">
-                           <a style="background: #99BBE8;height: 30px;width: 72%;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="ts_reset()">重置</a>
+                           <a style="background: #99BBE8;height: 30px;width: 72%;color: black;" class="easyui-linkbutton" plain="true" onclick="ts_reset()">重置</a>
                         </span>
 
                     </div>
                 </div>
-
-
-
-
             </div>
-
 
         </div>
 
@@ -102,6 +96,19 @@
     </div>
 
 <script>
+//    $('#tsTerminalType_select').combobox({
+//        valueField:'text',
+//        textField:'text',
+//        url:'../json/terminal/terminalType.json',
+//        editable:false
+//    });
+
+    $('#tsType_select').combobox({
+        valueField:'id',
+        textField:'text',
+        url:'../json/terminal/terminalState.json',
+        editable:false
+    });
 
 
     $('#selectTerminalTable').datagrid({
@@ -114,12 +121,16 @@
         collapsible:false,//是否可折叠的
         fit: true,//自动大小
         remoteSort:false,
-        idField:'fldId',
+        idField:'num',
         singleSelect:false,//是否单选
         pagination:true,//分页控件
         rownumbers:false,//行号,
         selectOnCheck: true,
-        checkOnSelect: true
+        checkOnSelect: true,
+        onClickRow:function(rowIndex, rowData){
+            //取消选择某行后高亮
+            $('#selectTerminalTable').datagrid('unselectRow', rowIndex);
+        }
     });
 
     var p = $('#selectTerminalTable').datagrid('getPager');
@@ -127,8 +138,7 @@
         pageSize: 10,
         pageList: [5,10,15],
         beforePageText: '',
-        afterPageText: '',
-        displayMsg: '共 {total} 条记录'
+        afterPageText: ''
     });
 
     $("#tsPartionCompany_select").combobox({
@@ -136,8 +146,6 @@
             getStores();
         }
     });
-
-    let selectTerminals = {};
 
     $(function () {
         $.ajax({
@@ -170,6 +178,40 @@
             }
         });
 
+        jQuery.support.cors = true;
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/posattr",
+            type: 'POST',
+            contentType:"application/json",
+            data: JSON.stringify({
+                "attrs":["Type"]
+            }),
+            success: function (res) {
+
+                if(res.statusCode === 100){
+                    let data = res.dic;
+                    let types = [];
+                    for(let i in data.Type){
+                        types.push({"text":data.Type[i].Attr});
+                    }
+
+                    $('#tsTerminalType_select').combobox({
+                        valueField:'text',
+                        textField:'text'
+                    });
+                    $('#tsTerminalType_select').combobox('loadData', types);
+
+
+                }
+                else{
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
 
     });
 
@@ -192,7 +234,7 @@
                     let stores = [];
                     for(let i in data){
                         if(data[i].CompanyCode === companyId){
-                            stores.push({ "text": data[i].StoreName, "id": data[i].StoreID });
+                            stores.push({ "text": data[i].StoreName, "value": data[i].StoreID });
                         }
                     }
                     $("#tsStore_select").combobox('loadData', stores);
@@ -228,20 +270,30 @@
         let options = grid.datagrid('getPager').data("pagination").options;
 
         let pageIndex = parseInt(options.pageNumber)-1;
+        if(pageIndex === -1){
+            pageIndex++;
+        }
         let pageSize = parseInt(options.pageSize);
 
-        let componayCode = $('#tsPartionCompany_select').combobox('getValue');
-        let storeId = $('#tsStore_select').combobox('getValue');
-        let posType = $('#tsTerminalType_select').combobox('getValue');
-        let state = $('#tsType_select').combobox('getValue');
-        let postName = $('#tsTerminalName_input').textbox('getValue');
-        let posId = $('#tsTerminalNo_input').textbox('getValue');
-        let memoryUsedBegin = $('#tsLagerMemoryUseRate').textbox('getValue');
-        let memoryUsedEnd = $('#tsSmallerMemoryUseRate').textbox('getValue');
-        let cpuUsedBegin = $('#tsLagerCPUUseRate').textbox('getValue');
-        let cpuUsedEnd = $('#tsSmallerCPUUseRate').textbox('getValue');
-        let diskUsedBegin = $('#tsLagerDiskUseRate').textbox('getValue');
-        let diskUsedEnd = $('#tsSmallerDiskUseRate').textbox('getValue');
+        let componayCode = handleNullNum($('#tsPartionCompany_select').combobox('getValue'));
+        let storeId = handleNullNum($('#tsStore_select').combobox('getValue'));
+        let posType = handleNullInfo($('#tsTerminalType_select').combobox('getValue'));
+
+        let state = "";
+        if(handleNullInfo($('#tsType_select').combobox('getValue'))){
+            state = handleNullInfo($('#tsType_select').combobox('getValue')) == "在线"?1:0;
+        }
+        else{
+            state = null;
+        }
+
+        let posId = handleNullNum($('#tsTerminalNo_input').textbox('getValue'));
+        let memoryUsedBegin = handleNullFloat($('#tsLagerMemoryUseRate').textbox('getValue'));
+        let memoryUsedEnd = handleNullFloat($('#tsSmallerMemoryUseRate').textbox('getValue'));
+        let cpuUsedBegin = handleNullFloat($('#tsLagerCPUUseRate').textbox('getValue'));
+        let cpuUsedEnd = handleNullFloat($('#tsSmallerCPUUseRate').textbox('getValue'));
+        let diskUsedBegin = handleNullFloat($('#tsLagerDiskUseRate').textbox('getValue'));
+        let diskUsedEnd = handleNullFloat($('#tsSmallerDiskUseRate').textbox('getValue'));
 
         let reqDate = {
             pageIndex:pageIndex,
@@ -250,7 +302,6 @@
             storeId:storeId,
             posType:posType,
             state:state,
-            postName:postName,
             posId:posId,
             memoryUsedBegin:memoryUsedBegin,
             memoryUsedEnd:memoryUsedEnd,
@@ -258,8 +309,9 @@
             cpuUsedEnd:cpuUsedEnd,
             diskUsedBegin:diskUsedBegin,
             diskUsedEnd:diskUsedEnd
-        }
+        };
 
+        console.log($('#tsStore_select').combobox('getValue'));
         $.ajax({
             crossDomain: true,
             url: "http://115.159.142.32:20002/pos",
@@ -270,23 +322,27 @@
                 console.log(res);
                 if(res.statusCode === 100){
                     let listData = res.data.rows;
+                    console.log(listData);
                     let listDatas = new Array();
-                    for ( let i=0;i<parseInt(res.data.total);i++) {
-                        selectTerminals[ID] = listData[i];
+                    for (let i=0;i<listData.length;i++) {
+                        selectTerminals[listData[i].ID] = listData[i];
                         let rowData =  {
-                            'tkNo':listData[i].ID,
-                            //'tmName' : listData[i].ID,
-                            'tmNum' : listData[i].PosID,
-                            //'tmCompany' : listData[i].StartTime,
-                            'tmStore' : listData[i].StoreName,
-                            'tmState':listData[i].Status,
-                            'tmMemusedRate' : listData[i].MemoryUsed,
-                            'tmCPUuserRate' : listData[i].CPULoad,
-                            'tmDiskuserRate' : listData[i].DiskUsed,//??
+                            'num':listData[i].ID,
+                            'tmsNo' : listData[i].PosID,
+                            'tmsCompany' : listData[i].CompanyName,
+                            'tmsStore' : listData[i].StoreName,
+                            'tmsState':listData[i].Status,
+                            'tmsMemUsed' : listData[i].MemoryUsed,
+                            'tmsCPNUsed' : listData[i].CPULoad,
+                            'tmsDiskUsed' : listData[i].Disk1Used//??
                             //'tmDiskNum' : listData[i].Status
                         };
                         listDatas.push(rowData);
                     }
+                    let p = $('#selectTerminalTable').datagrid('getPager');
+                    $(p).pagination({
+                        displayMsg: '共 '+res.data.total+' 条记录'
+                    });
                     $('#selectTerminalTable').datagrid('loadData',listDatas);
 
                 }
@@ -301,20 +357,27 @@
     }
 
     function  ts_searchTerminal_sure(){
-        let teRows = $('#selectTerminalTable').datagrid('getChecked');
+        var teRows = $('#selectTerminalTable').datagrid('getSelections');
         let data = [];
         let names = "";
-        for(let i in teRows){
-            data.push({"StoreID":selectTerminals[teRows.tkNo].storeId,"PosID":teRows.tmNum})
-            names+=teRows.tmName;
+        //console.log(teRows);
+        for(let i =0;i<teRows.length;i++){
+            //console.log(i);
+            data.push({"StoreID":selectTerminals[teRows[i].num].StoreID,"PosID":teRows[i].tmsNo});
+            names+=teRows[i].tmsNo;
             names+=",";
         }
         names = names.substr(0,names.length-1);
 
         $('#terminalupdate_select').searchbox('setValue',names);
 
+        console.log(data);
         selectTerminals = data;
         $('#selectTerminalDialog').window('close');
     }
+
+    $.parser.onComplete = function(){
+        ts_searchTerminal();
+    };
 
 </script>

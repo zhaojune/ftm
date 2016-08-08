@@ -6,17 +6,17 @@
 <div>
     <table style="padding-top: 20px;padding-left:40px;font-size: 18px;height: 80%" cellspacing="0">
         <tr style="height: 50px;">
-            <td>
+            <td style="width: 100px;">
                 <span>任务类型:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="detailTaskType">下载SOK图片</span>
+                <span id="detailTaskType"></span>
             </td>
-            <td id="irs_title">
+            <td id="irs_title" style="padding-left: 20px;">
                 <span>更新后是否重启终端:</span>
             </td>
-            <td id="irs_content" style="padding-left: 50px;">
-                <span id="detailIfRestart">否</span>
+            <td id="de_irs_content" style="padding-left: 50px;">
+                <span id="detailIfRestart"></span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -24,7 +24,7 @@
                 <span>任务名称:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="detailTaskName">更新SOK终端图片信息</span>
+                <span id="detailTaskName"></span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -32,13 +32,13 @@
                 <span>开始时间:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="detailStartName">2017.8.1</span>
+                <span id="detailStartName"></span>
             </td>
-            <td>
+            <td style="padding-left: 20px;">
                 <span>结束时间:</span>
             </td>
-            <td style="padding-left: 50px;">
-                <span id="detailEndTime">2017.9.1</span>
+            <td style="padding-left: 0px;">
+                <span id="detailEndTime"></span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -46,7 +46,7 @@
                 <span>执行策略:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="detailStrategy">只执行一次</span>
+                <span id="detailStrategy"></span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -54,7 +54,7 @@
                 <span>更新文件:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="detailUpdateFile">文件名称1</span>
+                <span id="detailUpdateFile"></span>
             </td>
         </tr>
         <tr style="height: 50px;">
@@ -62,7 +62,7 @@
                 <span>更新终端:</span>
             </td>
             <td style="padding-left: 50px;">
-                <span id="detailUpdateTerminal">SOK1</span>
+                <span id="detailUpdateTerminal"></span>
             </td>
         </tr>
     </table>
@@ -74,41 +74,80 @@
 </div>
 
 <script>
-    $('#detailTaskType').html(currTask.Type);
-    $('#detailTaskName').html(currTask.Name);
-    $('#detailStartName').html(currTask.StartTime);
-    $('#detailEndTime').html(currTask.EndTime);
-
     $(function(){
-        let sty = "";
-        switch (currTask.Strategy){
-            case "O":
-                sty="只执行一次";
-                break;
-            case "D":
-                sty="每天执行一次";
-                break;
-            case "W":
-                sty="每周执行一次";
-                break;
-            case "M":
-                sty="每月执行一次";
-                break;
-        }
-        $('#detailStrategy').html(sty);
+        getDetails();
+    });
 
-        let fileNames = currTask.FilePath.split('/');
-        $('#detailUpdateFile').html(fileNames[fileNames.length-1]);
+    function getDetails() {
+        jQuery.support.cors = true;
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/taskinfo",
+            type: 'GET',
+            contentType: "application/json",
+            data: {
+                id: parseInt(currTaskID)
+            },
+            success: function (res) {
+                console.log(res);
+                if (res.statusCode === 100) {
+                    let currTask = res.task;
+                    $('#detailTaskType').html(currTask.type);
+                    $('#detailTaskName').html(currTask.name);
+                    $('#detailStartName').html(currTask.startTime);
+                    $('#detailEndTime').html(currTask.endTime);
+                    $('#detailIfRestart').html(currTask.needRestart==0?"否":"是");
 
-        let terminals = "";
-        for(let i in currTask.pos){
-            terminals+=currTask.pos[i].posName;
-            terminals+=",";
-        }
-        terminals = terminals.substr(0,terminals.length-1);
-        $('#detailUpdateTerminal').html(terminals);
-    })
+                    let sty = "";
+                    switch (currTask.strategy){
+                        case "O":
+                            sty="只执行一次";
+                            break;
+                        case "D":
+                            sty="每天执行一次";
+                            break;
+                        case "W":
+                            sty="每周执行一次";
+                            break;
+                        case "M":
+                            sty="每月执行一次";
+                            break;
+                    }
+                    $('#detailStrategy').html(sty);
 
+                    let fn = currTask.filePath;
+                    if(!fn ||fn === ""){
+                        fn = "无";
+                    }
+                    else{
+                        let fileNames = currTask.filePath.split('/');
+                        fn = fileNames[fileNames.length-1];
+                    }
+                    $('#detailUpdateFile').html(fn);
 
+                    let terminals = "";
+                    for(let i in currTask.pos){
+                        terminals+=currTask.pos[i].posName;
+                        terminals+=",";
+                    }
+                    terminals = terminals.substr(0,terminals.length-1);
+
+                    if(terminals === ""){
+                        terminals = "无"
+                    }
+
+                    $('#detailUpdateTerminal').html(terminals);
+
+                }
+                else {
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
+
+    }
 
 </script>

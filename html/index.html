@@ -76,6 +76,11 @@
         $('#terminaltr').tree({
             url: '../json/terminal/menu.json',
             onClick: function (node) {
+
+                if(node.text === "终端基础信息" ||node.text === "终端软件版本"){
+                    node.text = "菜单导航";
+                }
+
                 if(!$('#tabs').tabs('exists',node.text)){
                     $('#tabs').tabs('add', {
                         title:  node.text,
@@ -89,6 +94,9 @@
             }
         });
     });
+
+
+
 
 </script>
 

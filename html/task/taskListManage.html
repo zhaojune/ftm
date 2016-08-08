@@ -22,15 +22,15 @@
         </label>
 
         <label style="padding-left: 70px;width: 20%;height: 100%;">
-            <input id="taskListSearchStartTime_input" value="任务开始时间" style="color:gainsboro;width:150px;height: 30px;" class="easyui-datetimebox"/>
+            <input id="taskListSearchStartTime_input" data-options="prompt:'任务开始时间'" editable="false" style="color:gainsboro;width:150px;height: 30px;" class="easyui-datetimebox"/>
         </label>
         <span style="padding-left: 20px;">&nbsp;至&nbsp;</span>
         <label style="padding-left: 20px;">
-            <input id="taskListSearchEndTime_input" value="任务结束时间" style="font-size: 15px;color:gainsboro;width:150px;height: 30px;" class="easyui-datetimebox"/>
+            <input id="taskListSearchEndTime_input" data-options="prompt:'任务结束时间'" editable="false" style="font-size: 15px;color:gainsboro;width:150px;height: 30px;" class="easyui-datetimebox"/>
         </label>
 
         <label style="padding-left:70px;width: 40%;">
-            <input id="taskListSearchState_input"  class="easyui-combobox"  data-options="prompt:'任务状态'" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
+            <input id="taskListSearchState_input"  class="easyui-combobox"  data-options="prompt:'进度状态'" style="font-size: 15px;color:gainsboro;width: 150px;height: 30px;"/>
         </label>
 
     </div>
@@ -43,58 +43,56 @@
 </div>
 
 <script>
-        $('#taskList').datagrid({
-            fitColumns:true,
-            nowrap: false,
-            striped: true,
-            border: true,
-            collapsible:false,//是否可折叠的
-            fit: true,//自动大小
-            remoteSort:false,
-            idField:'fldId',
-            singleSelect:false,//是否单选
-            pagination:true,//分页控件
-            rownumbers:false,//行号
-            onClickRow:function(rowIndex, rowData){
-                //取消选择某行后高亮
-                $('#taskList').datagrid('unselectRow', rowIndex);
-            }
-        });
+    $('#taskList').datagrid({
+        fitColumns:true,
+        nowrap: false,
+        striped: true,
+        border: true,
+        collapsible:false,//是否可折叠的
+        fit: true,//自动大小
+        remoteSort:false,
+        idField:'fldId',
+        singleSelect:false,//是否单选
+        pagination:true,//分页控件
+        rownumbers:false,//行号
+        onClickRow:function(rowIndex, rowData){
+            //取消选择某行后高亮
+            $('#taskList').datagrid('unselectRow', rowIndex);
+        }
+    });
 
-        var p = $('#taskList').datagrid('getPager');
-        $(p).pagination({
-            pageSize: 10,
-            pageList: [5,10,15],
-            beforePageText: '',
-            afterPageText: '',
-            displayMsg: '共 {total} 条记录'
-        });
+    var p = $('#taskList').datagrid('getPager');
+    $(p).pagination({
+        pageSize: 10,
+        pageList: [5,10,15],
+        beforePageText: '',
+        afterPageText: ''
+    });
 
-        $('#taskList').datagrid('getPager').pagination({
-            onSelectPage: function (pageNumber, pageSize) {
-                alert('aa');
+    $(function(){
 
-            }
-        });
+    })
 
-        $('#taskListSearchState_input').combobox({
-            valueField:'id',
-            textField:'text',
-            url:'../json/task/taskState.json',
-            editable:false
-        });
 
-        taskListSearch();
 
-        function cOperation(val,row){
+    $('#taskListSearchState_input').combobox({
+        //valueField:'id',
+        textField:'text',
+        url:'../json/task/taskState.json',
+        editable:false
+    });
+
+    function cOperation(val,row){
             return '<a id="details_link" href="#" onclick="taskListbtnJump(\'' + "任务详情"+'\',\'' + "./task/taskDetails.html"+'\',\'' +row.tkNum +'\')">详情</a>'+
                 '<a id="schedule_link" href="#" onclick="taskListbtnJump(\'' + "任务进度"+'\',\'' + "./task/taskSchedule.html"+'\',\'' +row.tkNum +'\')">查看进度</a>'+
-                '<a id="update_link" href="#" onclick="taskListbtnJump(\'' + "任务修改"+'\',\'' + "./task/taskAdd.html"+'\',\'' +row.tkNum +'\')">修改</a>'+
+                '<a id="update_link" href="#">修改</a>'+
                 '<a id="delete_link" href="#" >删除</a>';
         }
 
-        //返回
-        function Back(title){
+    //onclick="taskListbtnJump(\'' + "任务修改"+'\',\'' + "./task/taskAdd.html"+'\',\'' +row.tkNum +'\')"修改的点击事件
+
+    //返回
+    function Back(title){
             if(!$('#tabs').tabs('exists',"任务列表管理")){
                 $('#tabs').tabs('add', {
                     title:  "任务列表管理",
@@ -107,5 +105,15 @@
                 $('#tabs').tabs('select',"任务列表管理");
             }
         }
+
+    $.parser.onComplete = function(){
+        taskListSearch();
+//        $('#taskList').datagrid('getPager').pagination({
+//            onSelectPage: function (pageNumber, pageSize) {
+//                alert('aa');
+//            }
+//        });
+    }
+
 
 </script>

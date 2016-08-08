@@ -4,40 +4,38 @@
 
 let tasklist = {};
 let isUpdate = false;
-let currTask = {};
+let currTaskID = "";
 let updateTask = {};
+let selectTerminals = {};
 
 //任务列表搜索
 function taskListSearch(){
-
     //获取查询条件
     let grid = $('#taskList');
     let options = grid.datagrid('getPager').data("pagination").options;
 
     let pageIndex = parseInt(options.pageNumber)-1;
+    if(pageIndex === -1){
+        pageIndex++;
+    }
     let pageSize = parseInt(options.pageSize);
-    let taskName = $('#taskListSearchName_input').val().replace(/\s/g, "");
-    let beginDate = $('#taskListSearchStartTime_input').val();
-    let endDate = $('#taskListSearchEndTime_input').val();
-    let taskState = $('#taskListSearchState_input').combobox('getText').replace(/\s/g, "");
+    let taskName = handleNullInfo($('#taskListSearchName_input').textbox('getValue'));
+    let beginDate = handleNullInfo($('#taskListSearchStartTime_input').datetimebox('getValue'));
+    let endDate = handleNullInfo($('#taskListSearchEndTime_input').datetimebox('getValue'));
+    let taskState = handleNullInfo($('#taskListSearchState_input').combobox('getText'));
 
-    console.log(beginDate);
-    //处理查询条件
-    if(taskName === ""){
-        taskName = null;
+    if($('#taskListSearchStartTime_input').datetimebox('getValue')>$('#taskListSearchEndTime_input').datetimebox('getValue')){
+        alert("开始时间大于结束时间");
+        return;
     }
-    if(taskState === ""){
-        taskState = null;
-    }
-
 
     //构造查询数据
     let requestData = {
         pageIndex:pageIndex,
         pageSize:pageSize,
         taskName:taskName,
-        //beginDate:Date(),
-        //endDate:Date(endDate),
+        beginDate:beginDate,
+        endDate:endDate,
         taskState:taskState
     };
 
@@ -51,11 +49,23 @@ function taskListSearch(){
         success: function (res) {
             if(res.statusCode === 100){
 
+                console.log(requestData);
+                console.log(res);
                 let listData = res.data.rows;
 
                 let listDatas = new Array();
-                for ( let i=0;i<parseInt(res.data.total);i++) {
-                    tasklist[listData[i].ID] = listData[i];
+                for ( let i=0;i<listData.length;i++) {
+                    let schedule = "";
+                    if(listData[i].Status === 0){
+                        schedule = "未开始";
+                    }
+                    else if(listData[i].Status === 100){
+                        schedule = "已结束";
+                    }
+                    else{
+                        schedule = "执行中";
+                    }
+
                     let rowData =  {
                         'tkNum' : listData[i].ID,
                         'tkName' : listData[i].Name,
@@ -63,13 +73,26 @@ function taskListSearch(){
                         'tkEndTime' : listData[i].EndTime,
                         'tkCreator':listData[i].EditUser,
                         'tkCreateTime' : listData[i].CreateDate,
-                        'tkSchedule' : listData[i].Status
+                        'tkSchedule' : schedule
                     };
                     listDatas.push(rowData);
                 }
-
+                listDatas.sort(function(a,b) {
+                    if(a.ID< b.ID)
+                        return -1;
+                    else if(a.ID> b.ID){
+                        return 1;
+                    }
+                    else{
+                        return 0;
+                    }
+                });
                 $('#taskList').datagrid('loadData',listDatas);
 
+                let p = $('#taskList').datagrid('getPager');
+                $(p).pagination({
+                    displayMsg: '共 '+res.data.total+' 条记录'
+                });
             }
             else{
                 alert(res.msg);
@@ -84,7 +107,7 @@ function taskListSearch(){
 
 //链接跳转
 function taskListbtnJump(title,url,id){
-    currTask = tasklist[id];
+    currTaskID = id;
 
     if(title === "任务修改"){
         isUpdate = true;
@@ -120,6 +143,50 @@ function taskListbtnJump(title,url,id){
         closable: true
     });
 
+}
+
+function dateFormatter(date) {
+    date = new Date(date)
+    var y = date.getFullYear();
+    var m = date.getMonth() + 1;
+    var d = date.getDate();
+    var h = date.getHours();
+    var min = date.getMinutes();
+    var sec = date.getSeconds();
+    var day = y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d) + " " +
+        (h < 10 ? ('0' + h) : h) + ":" + (min < 10 ? ('0' + min) : min) + ":" + (sec < 10 ? ('0' + sec) : sec);
+    return day;
+}
+
+function handleNullInfo(info){
+    if(!info){
+        return null;
+    }
+    if(info.replace(/\s/g, "") === ""){
+        return null;
+    }
+    else{
+        return info;
+    }
+}
+
+function  handleNullNum(num){
+    if(!num){
+        return null;
+    }
+    else{
+        return parseInt(num);
+    }
+}
+
+function  handleNullFloat(num){
+    if(!num){
+        return null;
+    }
+    else{
+        console.log(parseFloat(num)*0.01);
+        return parseFloat(num)*0.01;
+    }
 }
 
 

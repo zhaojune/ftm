@@ -2,15 +2,15 @@
 <table id="terminalInfoTable"  cellspacing="0" toolbar="#terminalInfoTable_tab" cellpadding="0" border="false" style="height:100%;width: 100%;">
                 <thead>
                 <tr style="font-size: 15px;">
-                    <th field="tmName" width="11%" align="center" style="font-size: 20px;">终端名称</th>
-                    <th field="tmNum" width="11%" align="center">终端编号</th>
-                    <th field="tmCompany" width="11%" align="center">所属门店</th>
-                    <th field="tmStore" width="11%" align="center">所属分公司</th>
-                    <th field="tmState" width="11%" align="center">状态</th>
-                    <th field="tmMemusedRate" width="11%" align="center">内存使用率</th>
-                    <th field="tmCPUuserRate" width="11%" align="center">CPU使用率</th>
-                    <th field="tmDiskuserRate" width="11%" align="center">硬盘使用率</th>
-                    <th field="tmDiskNum" width="11%" align="center">硬盘序列号</th>
+
+                    <th field="tmNum" width="12%" align="center">终端编号</th>
+                    <th field="tmCompany" width="13%" align="center">所属门店</th>
+                    <th field="tmStore" width="13%" align="center">所属分公司</th>
+                    <th field="tmState" width="13%" align="center">状态</th>
+                    <th field="tmMemusedRate" width="13%" align="center">内存使用率</th>
+                    <th field="tmCPUuserRate" width="13%" align="center">CPU使用率</th>
+                    <th field="tmDiskuserRate" width="13%" align="center">硬盘使用率</th>
+                    <th field="tmDiskNum" width="13%" align="center">硬盘序列号</th>
 
                 </tr>
                 </thead>
@@ -21,17 +21,17 @@
                     <table style="padding-left: 10px;height: 10%;width: 95%">
                         <tr>
                             <td>
-                                <input id="infoPartionCompany_select" class="easyui-combobox" data-options="prompt:'选择分公司'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                <input id="infoPartionCompany_select" editable="false" class="easyui-combobox" data-options="prompt:'选择分公司'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                             </td>
                             <td style="padding-left: 50px;">
-                                <input id="infoStore_select" class="easyui-combobox" data-options="prompt:'选择门店'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                <input id="infoStore_select" editable="false" class="easyui-combobox" data-options="prompt:'选择门店'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                             </td>
                             <td style="padding-left: 50px;">
-                                <input id="infoTerminalType_select" class="easyui-combobox" data-options="prompt:'选择终端类型'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                <input id="infoTerminalType_select" editable="false" class="easyui-combobox" data-options="prompt:'选择终端类型'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                             </td>
 
                             <td style="padding-left: 50px;">
-                                <input id="infoType_select" class="easyui-combobox" data-options="prompt:'选择状态'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                <input id="infoType_select" editable="false" class="easyui-combobox" data-options="prompt:'选择状态'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                             </td>
                         </tr>
                         <tr >
@@ -40,27 +40,27 @@
 
                             </td>
                             <td style="padding-left: 50px;padding-top: 10px;">
-                                <input id="infoTerminalNo_input" class="easyui-textbox" data-options="prompt:'输入终端编号'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                <input id="infoTerminalNo_input" class="easyui-numberbox" data-options="prompt:'输入终端编号'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                             </td>
                             <td style="padding-left: 50px;padding-top: 10px;">
-                                <input id="infoLagerMemoryUseRate" class="easyui-textbox" data-options="prompt:'>=内存使用率(%)'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                <input id="infoLagerMemoryUseRate" class="easyui-numberbox" data-options="prompt:'>=内存使用率(%)'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                             </td>
                             <td style="padding-left: 50px;padding-top: 10px;">
-                                <input id="infoSmallerMemoryUseRate" class="easyui-textbox" data-options="prompt:'<=内存使用率(%)'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                <input id="infoSmallerMemoryUseRate" class="easyui-numberbox" data-options="prompt:'<=内存使用率(%)'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                             </td>
                         </tr>
                         <tr>
                             <td style="padding-top: 10px;">
-                                <input id="infoLagerCPUUseRate" class="easyui-textbox" data-options="prompt:'>=CPU使用率(%)'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                <input id="infoLagerCPUUseRate" class="easyui-numberbox" data-options="prompt:'>=CPU使用率(%)'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                             </td>
                             <td style="padding-left: 50px;padding-top: 10px;">
-                                <input id="infoSmallerCPUUseRate" class="easyui-textbox" data-options="prompt:'<=CPU使用率(%)'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                <input id="infoSmallerCPUUseRate" class="easyui-numberbox" data-options="prompt:'<=CPU使用率(%)'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                             </td>
                             <td style="padding-left: 50px;padding-top: 10px;">
-                                <input id="infoLagerDiskUseRate" class="easyui-textbox" data-options="prompt:'>=硬盘使用率(%)'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                <input id="infoLagerDiskUseRate" class="easyui-numberbox" data-options="prompt:'>=硬盘使用率(%)'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                             </td>
                             <td style="padding-left: 50px;padding-top: 10px;">
-                                <input id="infoSmallerDiskUseRate" class="easyui-textbox" data-options="prompt:'<=硬盘使用率(%)'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
+                                <input id="infoSmallerDiskUseRate" class="easyui-numberbox" data-options="prompt:'<=硬盘使用率(%)'" style="font-size: 15px;color:gainsboro;width:100%;height: 30px;"/>
                             </td>
                         </tr>
                     </table>
@@ -85,6 +85,20 @@
 
 <script>
 
+    $('#infoTerminalType_select').combobox({
+        valueField:'text',
+        textField:'text',
+        url:'../json/terminal/terminalType.json',
+        editable:false
+    });
+
+    $('#infoType_select').combobox({
+        valueField:'id',
+        textField:'text',
+        url:'../json/terminal/terminalState.json',
+        editable:false
+    });
+
 
     $('#terminalInfoTable').datagrid({
         height:"90%",
@@ -101,7 +115,11 @@
         pagination:true,//分页控件
         rownumbers:false,//行号,
         selectOnCheck: true,
-        checkOnSelect: true
+        checkOnSelect: true,
+        onClickRow:function(rowIndex, rowData){
+            //取消选择某行后高亮
+            $('#terminalInfoTable').datagrid('unselectRow', rowIndex);
+        }
     });
 
     var p = $('#terminalInfoTable').datagrid('getPager');
@@ -109,8 +127,7 @@
         pageSize: 10,
         pageList: [5,10,15],
         beforePageText: '',
-        afterPageText: '',
-        displayMsg: '共 {total} 条记录'
+        afterPageText: ''
     });
 
     $("#infoPartionCompany_select").combobox({
@@ -150,6 +167,38 @@
             }
         });
 
+        jQuery.support.cors = true;
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/posattr",
+            type: 'POST',
+            contentType:"application/json",
+            data: JSON.stringify({
+                "attrs":["Type"]
+            }),
+            success: function (res) {
+
+                if(res.statusCode === 100){
+                    let data = res.dic;
+                    let types = [];
+                    for(let i in data.Type){
+                        types.push({"text":data.Type[i].Attr});
+                    }
+                    $('#infoTerminalType_select').combobox({
+                        valueField:'text',
+                        textField:'text'
+                    });
+                    $('#infoTerminalType_select').combobox('loadData', types);
+
+                }
+                else{
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
 
     });
 
@@ -208,20 +257,23 @@
         let options = grid.datagrid('getPager').data("pagination").options;
 
         let pageIndex = parseInt(options.pageNumber)-1;
+        if(pageIndex === -1){
+            pageIndex++;
+        }
         let pageSize = parseInt(options.pageSize);
 
-        let componayCode = $('#infoPartionCompany_select').combobox('getValue');
-        let storeId = $('#infoStore_select').combobox('getValue');
-        let posType = $('#infoTerminalType_select').combobox('getValue');
-        let state = $('#infoType_select').combobox('getValue');
-        let postName = $('#infoTerminalName_input').textbox('getValue');
-        let posId = $('#infoTerminalNo_input').textbox('getValue');
-        let memoryUsedBegin = $('#infoLagerMemoryUseRate').textbox('getValue');
-        let memoryUsedEnd = $('#infoSmallerMemoryUseRate').textbox('getValue');
-        let cpuUsedBegin = $('#infoLagerCPUUseRate').textbox('getValue');
-        let cpuUsedEnd = $('#infoSmallerCPUUseRate').textbox('getValue');
-        let diskUsedBegin = $('#infoLagerDiskUseRate').textbox('getValue');
-        let diskUsedEnd = $('#infoSmallerDiskUseRate').textbox('getValue');
+        let componayCode = handleNullInfo($('#infoPartionCompany_select').combobox('getValue'));
+        let storeId = handleNullNum($('#infoStore_select').combobox('getValue'));
+        let posType = handleNullInfo($('#infoTerminalType_select').combobox('getValue'));
+        let state = handleNullInfo($('#infoType_select').combobox('getValue'));
+
+        let posId = handleNullNum($('#infoTerminalNo_input').textbox('getValue'));
+        let memoryUsedBegin = handleNullFloat($('#infoLagerMemoryUseRate').numberbox('getValue'));
+        let memoryUsedEnd = handleNullFloat($('#infoSmallerMemoryUseRate').textbox('getValue'));
+        let cpuUsedBegin = handleNullFloat($('#infoLagerCPUUseRate').textbox('getValue'));
+        let cpuUsedEnd = handleNullFloat($('#infoSmallerCPUUseRate').textbox('getValue'));
+        let diskUsedBegin = handleNullFloat($('#infoLagerDiskUseRate').textbox('getValue'));
+        let diskUsedEnd = handleNullFloat($('#infoSmallerDiskUseRate').textbox('getValue'));
 
         let reqDate = {
             pageIndex:pageIndex,
@@ -230,7 +282,6 @@
             storeId:storeId,
             posType:posType,
             state:state,
-            postName:postName,
             posId:posId,
             memoryUsedBegin:memoryUsedBegin,
             memoryUsedEnd:memoryUsedEnd,
@@ -238,10 +289,9 @@
             cpuUsedEnd:cpuUsedEnd,
             diskUsedBegin:diskUsedBegin,
             diskUsedEnd:diskUsedEnd
-        }
+        };
 
-
-
+        console.log(reqDate);
 
         $.ajax({
             crossDomain: true,
@@ -254,11 +304,10 @@
                 if(res.statusCode === 100){
                     let listData = res.data.rows;
                     let listDatas = new Array();
-                    for ( let i=0;i<parseInt(res.data.total);i++) {
+                    for ( let i=0;i<listData.length;i++) {
                         let rowData =  {
-                            //'tmName' : listData[i].ID,
                             'tmNum' : listData[i].PosID,
-                            //'tmCompany' : listData[i].StartTime,
+                            'tmCompany' : listData[i].CompanyName,
                             'tmStore' : listData[i].StoreName,
                             'tmState':listData[i].Status,
                             'tmMemusedRate' : listData[i].MemoryUsed,
@@ -266,8 +315,24 @@
                             'tmDiskuserRate' : listData[i].DiskUsed,//??
                             //'tmDiskNum' : listData[i].Status
                         };
+
                         listDatas.push(rowData);
                     }
+                    let p = $('#terminalInfoTable').datagrid('getPager');
+                    $(p).pagination({
+                        displayMsg: '共 '+res.data.total+' 条记录'
+                    });
+
+                    listDatas.sort(function(a,b) {
+                        if(a.tmNum< b.tmNum)
+                            return -1;
+                        else if(a.tmNum> b.tmNum){
+                            return 1;
+                        }
+                        else{
+                            return 0;
+                        }
+                    });
 
                     $('#terminalInfoTable').datagrid('loadData',listDatas);
 
@@ -282,7 +347,9 @@
         });
     }
 
-
+    $.parser.onComplete = function(){
+        searchTerminal();
+    }
 
 
 </script>
