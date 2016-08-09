@@ -100,35 +100,6 @@
     });
 
 
-    $('#terminalInfoTable').datagrid({
-        height:"90%",
-        closable:true,
-        fitColumns:true,
-        nowrap: false,
-        striped: true,
-        border: true,
-        collapsible:false,//是否可折叠的
-        fit: true,//自动大小
-        remoteSort:false,
-        idField:'fldId',
-        singleSelect:false,//是否单选
-        pagination:true,//分页控件
-        rownumbers:false,//行号,
-        selectOnCheck: true,
-        checkOnSelect: true,
-        onClickRow:function(rowIndex, rowData){
-            //取消选择某行后高亮
-            $('#terminalInfoTable').datagrid('unselectRow', rowIndex);
-        }
-    });
-
-    var p = $('#terminalInfoTable').datagrid('getPager');
-    $(p).pagination({
-        pageSize: 10,
-        pageList: [5,10,15],
-        beforePageText: '',
-        afterPageText: ''
-    });
 
     $("#infoPartionCompany_select").combobox({
         onChange: function (n,o) {
@@ -137,6 +108,40 @@
     });
 
     $(function () {
+        $('#terminalInfoTable').datagrid({
+            height:"90%",
+            closable:true,
+            fitColumns:true,
+            nowrap: false,
+            striped: true,
+            border: true,
+            collapsible:false,//是否可折叠的
+            fit: true,//自动大小
+            remoteSort:false,
+            idField:'fldId',
+            singleSelect:false,//是否单选
+            pagination:true,//分页控件
+            rownumbers:false,//行号,
+            selectOnCheck: true,
+            checkOnSelect: true,
+            onClickRow:function(rowIndex, rowData){
+                //取消选择某行后高亮
+                $('#terminalInfoTable').datagrid('unselectRow', rowIndex);
+            }
+        });
+
+        var p = $('#terminalInfoTable').datagrid('getPager');
+        $(p).pagination({
+            pageSize: 10,
+            pageList: [5,10,15],
+            beforePageText: '',
+            afterPageText: '',
+            onSelectPage:function(pageNumber,pageSize) {
+                searchTerminal();
+            }
+        });
+
+
         $.ajax({
             crossDomain: true,
             url: "http://115.159.142.32:20002/company",
@@ -146,7 +151,7 @@
                 partnerId:0
             },
             success: function (res) {
-                if(res.statusCode === 100) {
+                if(res.status_code === 100) {
                     //res = JSON.stringify(res);
 
                     let data = res.company;
@@ -178,7 +183,7 @@
             }),
             success: function (res) {
 
-                if(res.statusCode === 100){
+                if(res.status_code === 100){
                     let data = res.dic;
                     let types = [];
                     for(let i in data.Type){
@@ -215,7 +220,7 @@
             },
             success: function (res) {
                 console.log(res);
-                if(res.statusCode === 100){
+                if(res.status_code === 100){
                     // res = JSON.stringify(res);
                     let data = res.stores;
                     let stores = [];
@@ -301,7 +306,7 @@
             data: JSON.stringify(reqDate),
             success: function (res) {
                 console.log(res);
-                if(res.statusCode === 100){
+                if(res.status_code === 100){
                     let listData = res.data.rows;
                     let listDatas = new Array();
                     for ( let i=0;i<listData.length;i++) {

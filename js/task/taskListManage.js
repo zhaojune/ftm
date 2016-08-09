@@ -47,7 +47,7 @@ function taskListSearch(){
         contentType:"application/json",
         data: JSON.stringify(requestData),
         success: function (res) {
-            if(res.statusCode === 100){
+            if(res.status_code === 100){
 
                 console.log(requestData);
                 console.log(res);

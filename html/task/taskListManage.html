@@ -43,36 +43,36 @@
 </div>
 
 <script>
-    $('#taskList').datagrid({
-        fitColumns:true,
-        nowrap: false,
-        striped: true,
-        border: true,
-        collapsible:false,//是否可折叠的
-        fit: true,//自动大小
-        remoteSort:false,
-        idField:'fldId',
-        singleSelect:false,//是否单选
-        pagination:true,//分页控件
-        rownumbers:false,//行号
-        onClickRow:function(rowIndex, rowData){
-            //取消选择某行后高亮
-            $('#taskList').datagrid('unselectRow', rowIndex);
-        }
-    });
-
-    var p = $('#taskList').datagrid('getPager');
-    $(p).pagination({
-        pageSize: 10,
-        pageList: [5,10,15],
-        beforePageText: '',
-        afterPageText: ''
-    });
-
     $(function(){
+        $('#taskList').datagrid({
+            fitColumns:true,
+            nowrap: false,
+            striped: true,
+            border: true,
+            collapsible:false,//是否可折叠的
+            fit: true,//自动大小
+            remoteSort:false,
+            idField:'fldId',
+            singleSelect:false,//是否单选
+            pagination:true,//分页控件
+            rownumbers:false,//行号
+            onClickRow:function(rowIndex, rowData){
+                //取消选择某行后高亮
+                $('#taskList').datagrid('unselectRow', rowIndex);
+            }
+        });
 
+        var p = $('#taskList').datagrid('getPager');
+        $(p).pagination({
+            pageSize: 10,
+            pageList: [5,10,15],
+            beforePageText: '',
+            afterPageText: '',
+            onSelectPage:function(pageNumber,pageSize) {
+                alert(pageNumber);
+            }
+        });
     })
-
 
 
     $('#taskListSearchState_input').combobox({
@@ -108,11 +108,11 @@
 
     $.parser.onComplete = function(){
         taskListSearch();
-//        $('#taskList').datagrid('getPager').pagination({
-//            onSelectPage: function (pageNumber, pageSize) {
-//                alert('aa');
-//            }
-//        });
+//        var onSelectPage = $(p).pagination.onSelectPage;
+//        $(p).pagination.onSelectPage = function(pageNumber, pageSize){
+//            onSelectPage.call(this, pageNumber, pageSize);
+//            alert(123);
+//        }
     }
 
 

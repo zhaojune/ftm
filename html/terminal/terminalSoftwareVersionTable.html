@@ -147,7 +147,7 @@
                 partnerId:0
             },
             success: function (res) {
-                if(res.statusCode === 100) {
+                if(res.status_code === 100) {
 
                     let data = res.company;
                     console.log(data);
@@ -178,7 +178,7 @@
             }),
             success: function (res) {
 
-                if(res.statusCode === 100){
+                if(res.status_code === 100){
                     let data = res.dic;
                     let np6s = [];
                     for(let i in data.Np6Version){
@@ -264,7 +264,7 @@
             },
             success: function (res) {
                 console.log(res);
-                if(res.statusCode === 100){
+                if(res.status_code === 100){
                     // res = JSON.stringify(res);
                     let data = res.stores;
                     let stores = [];
@@ -350,7 +350,7 @@
             data: JSON.stringify(reqDate),
             success: function (res) {
                 console.log(res);
-                if(res.statusCode === 100){
+                if(res.status_code === 100){
                     let listData = res.data.rows;
                     let listDatas = new Array();
                     for ( let i=0;i<listData.length;i++) {
