@@ -72,15 +72,15 @@
     </table>
 
     <div class="easyui-tabs" id="resultTabs" style="width:100%;height: 3%;">
-        <div title="已完成" onselect="true">
+        <!--<div title="已完成" onselect="true">-->
 
-        </div>
-        <div title="未完成" >
+        <!--</div>-->
+        <!--<div title="未完成" >-->
 
-        </div>
-        <div title="更新失败" >
+        <!--</div>-->
+        <!--<div title="更新失败" >-->
 
-        </div>
+        <!--</div>-->
     </div>
 
 
@@ -138,6 +138,9 @@
 
 <script>
 
+
+
+
 //    $('#scheduleTerminalType_select').combobox({
 //        valueField:'text',
 //        textField:'text',
@@ -169,17 +172,6 @@
         afterPageText: ''
     });
 
-    $('#resultTabs').tabs({
-        onSelect:function(title){
-            if(title !== '更新失败'){
-                $("#schedule_list_data").datagrid('hideColumn', 'failLog');
-            }
-            else{
-                $("#schedule_list_data").datagrid('showColumn', 'failLog');
-            }
-        }
-    });
-
     $("#schedulePartionCompany_select").combobox({
         onChange: function (n,o) {
             getsch_Stores();
@@ -187,6 +179,7 @@
     });
 
     $(function () {
+
         jQuery.support.cors = true;
         $.ajax({
             crossDomain: true,
@@ -201,12 +194,12 @@
                     //res = JSON.stringify(res);
 
                     let data = res.company;
-                    console.log(data);
+                    //console.log(data);
                     let companies = [{"text":"全选"}];
                     for (let i in data) {
                         companies.push({"text": data[i].CompanyName, "value": data[i].CompanyCode});
                     }
-                    console.log(JSON.stringify(companies));
+                    //console.log(JSON.stringify(companies));
                     $("#schedulePartionCompany_select").combobox('loadData', companies);
                 }
                 else{
@@ -214,7 +207,7 @@
                 }
             },
             error: function (res) {
-                console.log(res);
+                //console.log(res);
             }
         });
 
@@ -229,13 +222,13 @@
                 id: parseInt(currTaskID)
             },
             success: function (res) {
-                console.log(res);
+                //console.log(res);
                 if (res.status_code === 100) {
                     let currTask = res.task;
                     $('#scheduleTaskType').html(currTask.type);
                     $('#scheduleTaskName').html(currTask.name);
-                    $('#scheduleStartName').html(currTask.startTime);
-                    $('#scheduleEndTime').html(currTask.endTime);
+                    $('#scheduleStartName').html(dateFormat(currTask.startTime));
+                    $('#scheduleEndTime').html(dateFormat(currTask.endTime));
                     $('#scheduleIfRestart').html(currTask.needRestart==0?"否":"是");
 
                     let sty = "";
@@ -283,7 +276,7 @@
                 }
             },
             error: function (res) {
-                console.log(res);
+                //console.log(res);
             }
         });
 
@@ -298,18 +291,25 @@
                 id: parseInt(currTaskID),
                 state:1
             },
-            success:function (res){
+            success:function (res) {
+
                 console.log(res);
-                //if(res.stat_code === 100){
-                    console.log(res);
-                    $('#schedulePbar').progressbar({
-                        value:parseFloat(res),
-                        text:"已完成"+parseFloat(res)*100+"%"
-                    });
-               //}
+                console.log(parseFloat(res));
+
+                let v = parseFloat(res)*100;
+
+                if(v<0){
+                    v=0;
+                }
+
+                $('#schedulePbar').progressbar({
+                    value: v,
+                    text: "已完成" + v + "%"
+                });
+
             },
             error: function (res) {
-                console.log(res);
+                //console.log(res);
             }
         });
 
@@ -342,7 +342,7 @@
                 }
             },
             error: function (res) {
-                console.log(res);
+                //console.log(res);
             }
         });
 
@@ -350,7 +350,7 @@
 
     function getsch_Stores(){
         let companyId = $('#schedulePartionCompany_select').combobox('getValue');
-        console.log(companyId);
+        //console.log(companyId);
         jQuery.support.cors = true;
         $.ajax({
             crossDomain: true,
@@ -361,7 +361,7 @@
                 companyCode:companyId
             },
             success: function (res) {
-                console.log(res);
+                //console.log(res);
                 if(res.status_code === 100){
                     // res = JSON.stringify(res);
                     let data = res.stores;
@@ -372,13 +372,14 @@
                         }
                     }
                     $("#scheduleStore_select").combobox('loadData', stores);
+                    $('#scheduleStore_select').combobox('setValue',"全选");
                 }
                 else{
                     alert(res.msg);
                 }
             },
             error: function (res) {
-                console.log(res);
+                //console.log(res);
             }
         });
     }
@@ -401,85 +402,122 @@
         let posType = handleNullInfo($('#scheduleTerminalType_select').combobox('getValue'));
 
         let state = handleNullInfo($('#resultTabs').tabs('getSelected').panel('options').title);
+        let posId = handleNullNum($('#scheduleTerminalNo_input').textbox('getValue'));
 
-        let posId = parseInt($('#scheduleTerminalNo_input').textbox('getValue'));
-
-        let reqDate = {
-            pageIndex:pageIndex,
-            pageSize:pageSize,
-            companyCode:componayCode,
-            storeId:storeId,
-            posType:posType,
-            //state:state,
-            posId:posId
-        };
-
-        console.log(reqDate);
-
-
-        jQuery.support.cors = true;
-        $.ajax({
-            crossDomain: true,
-            url: "http://115.159.142.32:20002/pos",
-            type: 'POST',
-            contentType:"application/json",
-            data: JSON.stringify(reqDate),
-            success: function (res) {
-
-                if(res.status_code === 100){
-                    let listData = res.data.rows;
-                    let listDatas = new Array();
-                    for ( let i=0;i<listData.length;i++) {
-                        let rowData =  {
-                            'terminalNo' : listData[i].PosID,
-                            'terminalType':listData[i].Type,
-                            'partionCompanies' : listData[i].CompanyName,
-                            'stores' : listData[i].StoreName,
-                            'np6' : listData[i].Np6Version,
-                            'np6App' : listData[i].Np6ExeVersion,
-                            'sokPic' : listData[i].SOKPicVer,
-                            'ownSoftware' : listData[i].SelfSoft,
-                            'keyPos' : listData[i].ForkVersion
-                            //'failLog':""
-                        };
-                        listDatas.push(rowData);
-                    }
-                    listDatas.sort(function(a,b) {
-                        if(a.terminalNo< b.terminalNo)
-                            return -1;
-                        else if(a.terminalNo> b.terminalNo){
-                            return 1;
-                        }
-                        else{
-                            return 0;
-                        }
-                    });
-                    let p = $('#schedule_list_data').datagrid('getPager');
-                    $(p).pagination({
-                        displayMsg: '共 '+res.data.total+' 条记录'
-                    });
-                    $('#schedule_list_data').datagrid('loadData',listDatas);
-
+        $.getJSON("../json/task/taskState.json",function(result){
+            for(let i in result){
+                if(handleNullInfo(result[i].text) === state){
+                    state = parseInt(result[i].id);
                 }
-                else{
-                    alert(res.msg);
-                }
-            },
-            error: function (res) {
-                console.log(res);
             }
+
+            let reqDate = {
+                pageIndex:pageIndex,
+                pageSize:pageSize,
+                companyCode:componayCode,
+                storeId:storeId,
+                posType:posType,
+                state:state,
+                posId:posId
+            };
+
+            console.log(reqDate);
+            console.log(123);
+
+
+            jQuery.support.cors = true;
+            $.ajax({
+                crossDomain: true,
+                url: "http://115.159.142.32:20002/pos",
+                type: 'POST',
+                contentType:"application/json",
+                data: JSON.stringify(reqDate),
+                success: function (res) {
+                    console.log(res);
+                    if(res.status_code === 100){
+                        let listData = res.data.rows;
+                        let listDatas = new Array();
+                        for ( let i=0;i<listData.length;i++) {
+                            let rowData =  {
+                                'terminalNo' : listData[i].PosID,
+                                'terminalType':listData[i].Type,
+                                'partionCompanies' : listData[i].CompanyName,
+                                'stores' : listData[i].StoreName,
+                                'np6' : listData[i].Np6Version,
+                                'np6App' : listData[i].Np6ExeVersion,
+                                'sokPic' : listData[i].SOKPicVer,
+                                'ownSoftware' : listData[i].SelfSoft,
+                                'keyPos' : listData[i].ForkVersion
+                                //'failLog':""
+                            };
+                            listDatas.push(rowData);
+                        }
+                        listDatas.sort(function(a,b) {
+                            if(a.terminalNo< b.terminalNo)
+                                return -1;
+                            else if(a.terminalNo> b.terminalNo){
+                                return 1;
+                            }
+                            else{
+                                return 0;
+                            }
+                        });
+                        let p = $('#schedule_list_data').datagrid('getPager');
+                        $(p).pagination({
+                            displayMsg: '共 '+res.data.total+' 条记录'
+                        });
+                        $('#schedule_list_data').datagrid('loadData',listDatas);
+
+                    }
+                    else{
+                        alert(res.msg);
+                    }
+                },
+                error: function (res) {
+                    //console.log(res);
+                }
+            });
         });
+
+
+
+
     }
 
-    $('#resultTabs').tabs({
-        //border:false,
-        onSelect:function(title,index){
-            sch_searchTerminal();
-        }
-    });
-    $.parser.onComplete = function(){
-        sch_searchTerminal();
 
+    $.parser.onComplete = function(){
+        //sch_searchTerminal();
+        $.getJSON("../json/task/taskState.json",function(result){
+            for(let i in result){
+                if(result[i].id!==-2){
+                    $('#resultTabs').tabs('add', {
+                        title: result[i].text,
+                        closable: false
+                    });
+                }
+            }
+            $('#resultTabs').tabs('select', '待执行');
+        });
+
+        let count = 0;
+
+        $('#resultTabs').tabs({
+            onSelect:function(title,index){
+                if(title !== '执行失败'){
+                    $("#schedule_list_data").datagrid('hideColumn', 'failLog');
+                }
+                else{
+                    $("#schedule_list_data").datagrid('showColumn', 'failLog');
+                }
+                if(count >= 4){
+                    sch_searchTerminal();
+                }
+                else{
+                   count++;
+                }
+
+            }
+        });
     };
 
 </script>

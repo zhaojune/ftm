@@ -29,15 +29,6 @@ function taskListSearch(){
         return;
     }
 
-    //let taskStateJson="/scripts/area/areas.json";
-    //$.getJSON(taskStateJson, function(data){
-    //    for(let i in taskStateJson){
-    //        if(taskStateJson[i].text === taskState){
-    //            taskState = parseInt(taskStateJson[i].id);
-    //        }
-    //    }
-    //});
-
     //构造查询数据
     let requestData = {
         pageIndex:pageIndex,
@@ -48,6 +39,8 @@ function taskListSearch(){
         taskState:taskState
     };
 
+    console.log(requestData);
+
     jQuery.support.cors = true;
     $.ajax({
         crossDomain: true,
@@ -56,6 +49,7 @@ function taskListSearch(){
         contentType:"application/json",
         data: JSON.stringify(requestData),
         success: function (res) {
+            console.log(res);
             if(res.status_code === 100){
 
                 console.log(requestData);
@@ -79,10 +73,10 @@ function taskListSearch(){
                     let rowData =  {
                         'tkNum' : listData[i].ID,
                         'tkName' : listData[i].Name,
-                        'tkStartTime' : listData[i].StartTime,
-                        'tkEndTime' : listData[i].EndTime,
+                        'tkStartTime' : dateFormat(listData[i].StartTime),
+                        'tkEndTime' : dateFormat(listData[i].EndTime),
                         'tkCreator':listData[i].EditUser,
-                        'tkCreateTime' : listData[i].CreateDate,
+                        'tkCreateTime' : dateFormat(listData[i].CreateDate),
                         'tkSchedule' : schedule
                     };
                     listDatas.push(rowData);
@@ -155,17 +149,28 @@ function taskListbtnJump(title,url,id){
 
 }
 
-function dateFormatter(date) {
-    date = new Date(date)
-    var y = date.getFullYear();
-    var m = date.getMonth() + 1;
-    var d = date.getDate();
-    var h = date.getHours();
-    var min = date.getMinutes();
-    var sec = date.getSeconds();
-    var day = y + '-' + (m < 10 ? ('0' + m) : m) + '-' + (d < 10 ? ('0' + d) : d) + " " +
-        (h < 10 ? ('0' + h) : h) + ":" + (min < 10 ? ('0' + min) : min) + ":" + (sec < 10 ? ('0' + sec) : sec);
-    return day;
+function dateFormat(value) {
+    if(value){
+        value = value.replace('T', ' ');
+        var date = new Date(value);
+        var fmt = "yyyy-MM-dd HH:mm:ss";
+        var o = {
+            "M+": date.getMonth() + 1,
+            "d+": date.getDate(),
+            "HH+": date.getHours(),
+            "m+": date.getMinutes(),
+            "s+": date.getSeconds(),
+            "S": date.getMilliseconds()
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (date.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+            if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+    else{
+        return null;
+    }
+
 }
 
 function handleNullInfo(info){

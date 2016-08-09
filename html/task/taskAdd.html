@@ -125,16 +125,16 @@
             let ra_no = -1;
             switch (updateTask.Strategy){
                 case "0":
-                    ra_no = 0;
-                    break;
-                case "D":
                     ra_no = 1;
                     break;
-                case "W":
+                case "D":
                     ra_no = 2;
                     break;
-                case "M":
+                case "W":
                     ra_no = 3;
+                    break;
+                case "M":
+                    ra_no = 4;
                     break;
             }
             $("input[name='strategy_radio']").eq(ra_no).click();
@@ -144,6 +144,7 @@
         $('#taskType_select').combobox({
             valueField:'id',
             textField:'text',
+            value:-2,
             url:'../json/task/taskType.json',
             editable:false
         });

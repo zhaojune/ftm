@@ -78,6 +78,7 @@
     $('#taskListSearchState_input').combobox({
         valueField:'id',
         textField:'text',
+        value:-2,
         url:'../json/task/taskState.json',
         editable:false
     });
@@ -108,11 +109,7 @@
 
     $.parser.onComplete = function(){
         taskListSearch();
-//        var onSelectPage = $(p).pagination.onSelectPage;
-//        $(p).pagination.onSelectPage = function(pageNumber, pageSize){
-//            onSelectPage.call(this, pageNumber, pageSize);
-//            alert(123);
-//        }
+
     }
 
 

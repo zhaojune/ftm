@@ -2,16 +2,13 @@
 <table id="terminalInfoTable"  cellspacing="0" toolbar="#terminalInfoTable_tab" cellpadding="0" border="false" style="height:100%;width: 100%;">
                 <thead>
                 <tr style="font-size: 15px;">
-
-                    <th field="tmNum" width="12%" align="center">终端编号</th>
-                    <th field="tmCompany" width="13%" align="center">所属门店</th>
-                    <th field="tmStore" width="13%" align="center">所属分公司</th>
-                    <th field="tmState" width="13%" align="center">状态</th>
-                    <th field="tmMemusedRate" width="13%" align="center">内存使用率</th>
-                    <th field="tmCPUuserRate" width="13%" align="center">CPU使用率</th>
-                    <th field="tmDiskuserRate" width="13%" align="center">硬盘使用率</th>
-                    <th field="tmDiskNum" width="13%" align="center">硬盘序列号</th>
-
+                    <th field="tmNum" width="13%" align="center">终端编号</th>
+                    <th field="tmCompany" width="15%" align="center">所属门店</th>
+                    <th field="tmStore" width="15%" align="center">所属分公司</th>
+                    <th field="tmState" width="15%" align="center">状态</th>
+                    <th field="tmMemusedRate" width="15%" align="center">内存使用率</th>
+                    <th field="tmCPUuserRate" width="15%" align="center">CPU使用率</th>
+                    <th field="tmDiskuserRate" width="15%" align="center">硬盘使用率</th>
                 </tr>
                 </thead>
 
@@ -85,12 +82,17 @@
 
 <script>
 
-    $('#infoTerminalType_select').combobox({
-        valueField:'text',
-        textField:'text',
-        url:'../json/terminal/terminalType.json',
-        editable:false
-    });
+//    $('#infoStore_select').combobox({
+//        valueField:'text',
+//        textField:'text'
+//    });
+
+//    $('#infoTerminalType_select').combobox({
+//        valueField:'text',
+//        textField:'text',
+//        url:'../json/terminal/terminalType.json',
+//        editable:false
+//    });
 
     $('#infoType_select').combobox({
         valueField:'id',
@@ -231,6 +233,8 @@
                         }
                     }
                     $("#infoStore_select").combobox('loadData', stores);
+                    $('#infoStore_select').combobox('setValue',"全选");
+
                 }
                 else{
                     alert(res.msg);
@@ -303,6 +307,8 @@
 
         let reqDate = getInfoData();
 
+        console.log(reqDate);
+
         $.ajax({
             crossDomain: true,
             url: "http://115.159.142.32:20002/pos",
@@ -322,8 +328,7 @@
                             'tmState':listData[i].Status,
                             'tmMemusedRate' : listData[i].MemoryUsed,
                             'tmCPUuserRate' : listData[i].CPULoad,
-                            'tmDiskuserRate' : listData[i].DiskUsed,//
-                            //'tmDiskNum' : listData[i].Status
+                            'tmDiskuserRate' : listData[i].DiskUsed
                         };
 
                         listDatas.push(rowData);

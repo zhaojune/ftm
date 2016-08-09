@@ -96,12 +96,7 @@
     </div>
 
 <script>
-//    $('#tsTerminalType_select').combobox({
-//        valueField:'text',
-//        textField:'text',
-//        url:'../json/terminal/terminalType.json',
-//        editable:false
-//    });
+
 
     $('#tsType_select').combobox({
         valueField:'id',
@@ -238,6 +233,7 @@
                         }
                     }
                     $("#tsStore_select").combobox('loadData', stores);
+                    $('#tsStore_select').combobox('setValue',"全选");
                 }
                 else{
                     alert(res.msg);

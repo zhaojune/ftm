@@ -94,8 +94,8 @@
                     let currTask = res.task;
                     $('#detailTaskType').html(currTask.type);
                     $('#detailTaskName').html(currTask.name);
-                    $('#detailStartName').html(currTask.startTime);
-                    $('#detailEndTime').html(currTask.endTime);
+                    $('#detailStartName').html(dateFormat(currTask.startTime));
+                    $('#detailEndTime').html(dateFormat(currTask.endTime));
                     $('#detailIfRestart').html(currTask.needRestart==0?"否":"是");
 
                     let sty = "";
