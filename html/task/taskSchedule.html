@@ -412,12 +412,13 @@
             }
 
             let reqDate = {
+                taskId:parseInt(currTaskID),
                 pageIndex:pageIndex,
                 pageSize:pageSize,
                 companyCode:componayCode,
                 storeId:storeId,
                 posType:posType,
-                state:state,
+                taskState:state,
                 posId:posId
             };
 
@@ -428,7 +429,7 @@
             jQuery.support.cors = true;
             $.ajax({
                 crossDomain: true,
-                url: "http://115.159.142.32:20002/pos",
+                url: "http://115.159.142.32:20002/taskpos",
                 type: 'POST',
                 contentType:"application/json",
                 data: JSON.stringify(reqDate),
