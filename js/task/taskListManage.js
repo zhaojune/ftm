@@ -22,12 +22,21 @@ function taskListSearch(){
     let taskName = handleNullInfo($('#taskListSearchName_input').textbox('getValue'));
     let beginDate = handleNullInfo($('#taskListSearchStartTime_input').datetimebox('getValue'));
     let endDate = handleNullInfo($('#taskListSearchEndTime_input').datetimebox('getValue'));
-    let taskState = handleNullInfo($('#taskListSearchState_input').combobox('getText'));
+    let taskState = handleNullNum($('#taskListSearchState_input').combobox('getValue'));
 
     if(beginDate&&endDate&&$('#taskListSearchStartTime_input').datetimebox('getValue')>$('#taskListSearchEndTime_input').datetimebox('getValue')){
         alert("开始时间大于结束时间");
         return;
     }
+
+    //let taskStateJson="/scripts/area/areas.json";
+    //$.getJSON(taskStateJson, function(data){
+    //    for(let i in taskStateJson){
+    //        if(taskStateJson[i].text === taskState){
+    //            taskState = parseInt(taskStateJson[i].id);
+    //        }
+    //    }
+    //});
 
     //构造查询数据
     let requestData = {
@@ -56,15 +65,16 @@ function taskListSearch(){
                 let listDatas = new Array();
                 for ( let i=0;i<listData.length;i++) {
                     let schedule = "";
-                    if(listData[i].Status === 0){
-                        schedule = "未开始";
-                    }
-                    else if(listData[i].Status === 100){
-                        schedule = "已结束";
-                    }
-                    else{
-                        schedule = "执行中";
-                    }
+
+                    let taskStateJson="../json/task/taskState.json";
+                    $.getJSON(taskStateJson, function(data){
+
+                        for(let i in data){
+                            if(data[i].id === listData[i].Status){
+                                schedule = data[i].text;
+                            }
+                        }
+                    });
 
                     let rowData =  {
                         'tkNum' : listData[i].ID,
@@ -171,7 +181,7 @@ function handleNullInfo(info){
 }
 
 function  handleNullNum(num){
-    if(!num){
+    if(!num || parseInt(num) === -2){
         return null;
     }
     else{

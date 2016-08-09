@@ -76,7 +76,7 @@
                         </span>
 
                     <span style="padding-left: 10px;width: 20%;">
-                           <a style="background: #99BBE8;height: 30px;width: 80px;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="exportTable()">导出excel</a>
+                           <a style="background: #99BBE8;height: 30px;width: 80px;color: black;" href="#" class="easyui-linkbutton" plain="true" onclick="exportInfoTable()">导出excel</a>
                         </span>
 
                 </div>
@@ -257,8 +257,7 @@
         $('#infoSmallerDiskUseRate').textbox('setValue',"");
     }
 
-    function searchTerminal(){
-
+    function getInfoData(){
         let grid = $('#terminalInfoTable');
         let options = grid.datagrid('getPager').data("pagination").options;
 
@@ -297,7 +296,12 @@
             diskUsedEnd:diskUsedEnd
         };
 
-        console.log(reqDate);
+        return reqDate;
+    }
+
+    function searchTerminal(){
+
+        let reqDate = getInfoData();
 
         $.ajax({
             crossDomain: true,
@@ -318,7 +322,7 @@
                             'tmState':listData[i].Status,
                             'tmMemusedRate' : listData[i].MemoryUsed,
                             'tmCPUuserRate' : listData[i].CPULoad,
-                            'tmDiskuserRate' : listData[i].DiskUsed,//??
+                            'tmDiskuserRate' : listData[i].DiskUsed,//
                             //'tmDiskNum' : listData[i].Status
                         };
 
@@ -355,6 +359,31 @@
 
     $.parser.onComplete = function(){
         searchTerminal();
+    };
+
+    function exportInfoTable(){
+        let reqDate = getInfoData();
+        $.ajax({
+            crossDomain: true,
+            url: "http://115.159.142.32:20002/posexcel",
+            type: 'POST',
+            contentType:"application/json",
+            data: JSON.stringify(reqDate),
+            success: function (res) {
+                console.log(res);
+                if(res.status_code === 100) {
+                    console.log(res.File);
+                    let path = "http://115.159.142.32:20002"+res.File;
+                    window.open(path,'','height=500,width=611,scrollbars=yes,status=yes');
+                }
+                else{
+                    alert(res.msg);
+                }
+            },
+            error: function (res) {
+                console.log(res);
+            }
+        });
     }
 
 

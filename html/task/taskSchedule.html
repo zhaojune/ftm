@@ -300,13 +300,13 @@
             },
             success:function (res){
                 console.log(res);
-                //if(res.stateCode === 100){
+                //if(res.stat_code === 100){
                     console.log(res);
                     $('#schedulePbar').progressbar({
-                        value:10,
-                        text:"已完成"+10+"%"
+                        value:parseFloat(res),
+                        text:"已完成"+parseFloat(res)*100+"%"
                     });
-//                }
+               //}
             },
             error: function (res) {
                 console.log(res);
