@@ -84,12 +84,6 @@
 
 <script>
 
-//    $('#terminalType_select').combobox({
-//        valueField:'text',
-//        textField:'text',
-//        url:'../json/terminal/terminalType.json',
-//        editable:false
-//    });
 
     $('#type_select').combobox({
         valueField:'id',
@@ -316,7 +310,7 @@
 
         let posId = handleNullNum($('#terminalNo_input').textbox('getValue'));
         let Np6Version = handleNullInfo($('#NP6Version').textbox('getValue'));
-        let Np6ExeVersion = $('#NP6APPVersion').textbox('getValue');
+        let Np6ExeVersion = handleNullInfo($('#NP6APPVersion').textbox('getValue'));
         let SOKPicVer = handleNullInfo($('#SOKPic').textbox('getValue'));
         let SelfSoft = handleNullInfo($('#Own').textbox('getValue'));
         let ForkVersion = handleNullInfo($('#KeyPos').textbox('getValue'));
@@ -344,6 +338,7 @@
 
         let reqDate = getSVData();
 
+        console.log(reqDate);
 
         jQuery.support.cors = true;
         $.ajax({
@@ -354,6 +349,7 @@
             data: JSON.stringify(reqDate),
             success: function (res) {
                 console.log(res);
+
                 if(res.status_code === 100){
                     let listData = res.data.rows;
                     let listDatas = new Array();
