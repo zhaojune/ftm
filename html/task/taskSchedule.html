@@ -350,18 +350,18 @@
 
     function getsch_Stores(){
         let companyId = $('#schedulePartionCompany_select').combobox('getValue');
-        //console.log(companyId);
+        console.log(companyId);
         jQuery.support.cors = true;
         $.ajax({
             crossDomain: true,
             url: "http://115.159.142.32:20002/store",
             type: 'GET',
             contentType:"application/json",
-            data: {
+            data: JSON.stringify({
                 companyCode:companyId
-            },
+            }),
             success: function (res) {
-                //console.log(res);
+                console.log(res);
                 if(res.status_code === 100){
                     // res = JSON.stringify(res);
                     let data = res.stores;

@@ -251,9 +251,9 @@
             url: "http://115.159.142.32:20002/store",
             type: 'GET',
             contentType:"application/json",
-            data: {
+            data: JSON.stringify({
                 companyCode:companyId
-            },
+            }),
             success: function (res) {
                 console.log(res);
                 if(res.status_code === 100){

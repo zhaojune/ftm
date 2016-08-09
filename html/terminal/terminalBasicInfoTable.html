@@ -213,14 +213,15 @@
     function getinfo_Stores(){
         let companyId = $('#infoPartionCompany_select').combobox('getValue');
         console.log(companyId);
+        let data = {
+            companyCode:companyId
+        };
         $.ajax({
             crossDomain: true,
             url: "http://115.159.142.32:20002/store",
             type: 'GET',
             contentType:"application/json",
-            data: {
-                companyCode:companyId
-            },
+            data: JSON.stringify(data),
             success: function (res) {
                 console.log(res);
                 if(res.status_code === 100){
