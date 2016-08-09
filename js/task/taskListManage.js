@@ -24,7 +24,7 @@ function taskListSearch(){
     let endDate = handleNullInfo($('#taskListSearchEndTime_input').datetimebox('getValue'));
     let taskState = handleNullInfo($('#taskListSearchState_input').combobox('getText'));
 
-    if($('#taskListSearchStartTime_input').datetimebox('getValue')>$('#taskListSearchEndTime_input').datetimebox('getValue')){
+    if(beginDate&&endDate&&$('#taskListSearchStartTime_input').datetimebox('getValue')>$('#taskListSearchEndTime_input').datetimebox('getValue')){
         alert("开始时间大于结束时间");
         return;
     }
@@ -162,7 +162,7 @@ function handleNullInfo(info){
     if(!info){
         return null;
     }
-    if(info.replace(/\s/g, "") === ""){
+    if(info.replace(/\s/g, "") === "" || info.replace(/\s/g, "") === "全选"){
         return null;
     }
     else{

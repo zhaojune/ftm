@@ -253,7 +253,7 @@
             return;
         }
 
-        if($('#startTime').datetimebox('getValue')>$('#endTime').datetimebox('getValue')){
+        if(reqTask.StartTime&&reqTask.EndTime&&$('#startTime').datetimebox('getValue')>$('#endTime').datetimebox('getValue')){
             alert("开始时间大于结束时间");
             return;
         }

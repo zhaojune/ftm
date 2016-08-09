@@ -156,7 +156,7 @@
 
                     let data = res.company;
                     console.log(data);
-                    let companies = [];
+                    let companies = [{"text":"全选"}];
                     for (let i in data) {
                         companies.push({"text": data[i].CompanyName, "value": data[i].CompanyCode});
                     }
@@ -185,10 +185,11 @@
 
                 if(res.status_code === 100){
                     let data = res.dic;
-                    let types = [];
+                    let types = [{"text":"全选"}];
                     for(let i in data.Type){
                         types.push({"text":data.Type[i].Attr});
                     }
+
                     $('#infoTerminalType_select').combobox({
                         valueField:'text',
                         textField:'text'
@@ -223,7 +224,7 @@
                 if(res.status_code === 100){
                     // res = JSON.stringify(res);
                     let data = res.stores;
-                    let stores = [];
+                    let stores = [{"text":"全选"}];
                     for(let i in data){
                         if(data[i].CompanyCode === companyId){
                             stores.push({ "text": data[i].StoreName, "value": data[i].StoreID });
