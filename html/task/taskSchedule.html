@@ -174,7 +174,9 @@
 
     $("#schedulePartionCompany_select").combobox({
         onChange: function (n,o) {
-            getsch_Stores();
+            if($("#schedulePartionCompany_select").combobox('getText') !== "全选"){
+                getsch_Stores();
+            }
         }
     });
 
@@ -357,9 +359,9 @@
             url: "http://115.159.142.32:20002/store",
             type: 'GET',
             contentType:"application/json",
-            data: JSON.stringify({
+            data: {
                 companyCode:companyId
-            }),
+            },
             success: function (res) {
                 console.log(res);
                 if(res.status_code === 100){
@@ -429,7 +431,7 @@
             jQuery.support.cors = true;
             $.ajax({
                 crossDomain: true,
-                url: "http://115.159.142.32:20002/taskpos",
+                url: host+"/taskpos",
                 type: 'POST',
                 contentType:"application/json",
                 data: JSON.stringify(reqDate),

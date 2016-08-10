@@ -7,6 +7,7 @@ let isUpdate = false;
 let currTaskID = "";
 let updateTask = {};
 let selectTerminals = {};
+let host = "http://115.159.142.32:20002";
 
 //任务列表搜索
 function taskListSearch(){
@@ -44,7 +45,7 @@ function taskListSearch(){
     jQuery.support.cors = true;
     $.ajax({
         crossDomain: true,
-        url: "http://115.159.142.32:20002/querytask",
+        url: host+"/querytask",
         type: 'POST',
         contentType:"application/json",
         data: JSON.stringify(requestData),

@@ -72,7 +72,7 @@
     function getStateData() {
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/posbassis",
+            url: host+"/posbassis",
             type: 'POST',
             contentType:"application/json",
             data: JSON.stringify({
@@ -98,7 +98,7 @@
     function getMemoryData() {
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/posbassis",
+            url: host+"/posbassis",
             type: 'POST',
             contentType:"application/json",
             data: JSON.stringify({
@@ -124,7 +124,7 @@
     function getCpuUsedData() {
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/posbassis",
+            url: host+"/posbassis",
             type: 'POST',
             contentType:"application/json",
             data: JSON.stringify({
@@ -150,7 +150,7 @@
     function getDiskUsedData() {
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/posbassis",
+            url: host+"/posbassis",
             type: 'POST',
             contentType:"application/json",
             data: JSON.stringify({
@@ -300,7 +300,7 @@
     function getCompany() {
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/company",
+            url: host+"/company",
             type: 'GET',
             contentType:"application/json",
             data: {
@@ -339,7 +339,7 @@
     function getStore(companyCode) {
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/store",
+            url: host+"/store",
             type: 'GET',
             contentType:"application/json",
             data: {
@@ -377,7 +377,7 @@
     function getPosType() {
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/posattr",
+            url: host+"/posattr",
             type: 'POST',
             contentType:"application/json",
             data: JSON.stringify({"attrs":["Type"]}),

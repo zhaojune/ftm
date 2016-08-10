@@ -97,6 +97,7 @@
     $('#infoType_select').combobox({
         valueField:'id',
         textField:'text',
+        method:'get',
         url:'../json/terminal/terminalState.json',
         editable:false
     });
@@ -105,7 +106,9 @@
 
     $("#infoPartionCompany_select").combobox({
         onChange: function (n,o) {
-            getinfo_Stores();
+            if($("#infoPartionCompany_select").combobox('getText') !== "全选"){
+                getinfo_Stores();
+            }
         }
     });
 
@@ -221,7 +224,7 @@
             url: "http://115.159.142.32:20002/store",
             type: 'GET',
             contentType:"application/json",
-            data: JSON.stringify(data),
+            data: data,
             success: function (res) {
                 console.log(res);
                 if(res.status_code === 100){
@@ -312,7 +315,7 @@
 
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/pos",
+            url: host+"/pos",
             type: 'POST',
             contentType:"application/json",
             data: JSON.stringify(reqDate),
@@ -371,7 +374,7 @@
         let reqDate = getInfoData();
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/posexcel",
+            url: host+"/posexcel",
             type: 'POST',
             contentType:"application/json",
             data: JSON.stringify(reqDate),
@@ -379,7 +382,7 @@
                 console.log(res);
                 if(res.status_code === 100) {
                     console.log(res.File);
-                    let path = "http://115.159.142.32:20002"+res.File;
+                    let path = host+""+res.File;
                     window.open(path,'','height=500,width=611,scrollbars=yes,status=yes');
                 }
                 else{

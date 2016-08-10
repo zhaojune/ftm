@@ -86,6 +86,7 @@
     $('#type_select').combobox({
         valueField:'id',
         textField:'text',
+        method:'get',
         url:'../json/terminal/terminalState.json',
         editable:false
     });
@@ -124,7 +125,10 @@
 
     $("#partionCompany_select").combobox({
         onChange: function (n,o) {
-            getsv_Stores()
+            if($("#partionCompany_select").combobox('getText') !== "全选"){
+                getsv_Stores();
+            }
+
         }
     });
 
@@ -132,7 +136,7 @@
         jQuery.support.cors = true;
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/company",
+            url: host+"/company",
             type: 'GET',
             contentType:"application/json",
             data: {
@@ -162,7 +166,7 @@
         jQuery.support.cors = true;
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/posattr",
+            url: host+"/posattr",
             type: 'POST',
             contentType:"application/json",
             data: JSON.stringify({
@@ -248,12 +252,12 @@
         jQuery.support.cors = true;
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/store",
+            url: host+"/store",
             type: 'GET',
             contentType:"application/json",
-            data: JSON.stringify({
+            data: {
                 companyCode:companyId
-            }),
+            },
             success: function (res) {
                 console.log(res);
                 if(res.status_code === 100){
@@ -342,7 +346,7 @@
         jQuery.support.cors = true;
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/pos",
+            url: host+"/pos",
             type: 'POST',
             contentType:"application/json",
             data: JSON.stringify(reqDate),
@@ -404,7 +408,7 @@
     jQuery.support.cors = true;
     $.ajax({
         crossDomain: true,
-        url: "http://115.159.142.32:20002/posexcel",
+        url: host+"/posexcel",
         type: 'POST',
         contentType:"application/json",
         data: JSON.stringify(reqDate),
@@ -412,7 +416,7 @@
             console.log(res);
             if(res.status_code === 100){
                 console.log(res.File);
-                let path = "http://115.159.142.32:20002"+res.File;
+                let path = host+""+res.File;
                 window.open(path,'','height=500,width=611,scrollbars=yes,status=yes');
             }
             else{

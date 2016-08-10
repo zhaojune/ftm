@@ -74,11 +74,11 @@
                     <span>更新文件:</span>
                 </td>
                 <td style="padding-left: 50px;width: 90%;position:relative;">
-                    <!--<form id="upload-form" action="http://115.159.142.32:20002/upload" method="post" enctype="multipart/form-data" >-->
+                    <!--<form id="upload-form" action=host+"/upload" method="post" enctype="multipart/form-data" >-->
                         <!--　　　　<input type="file" id="upload" name="upload" /> <br />-->
                         <!--　　　　<input type="submit" value="Upload" />-->
                         <!--　　</form>-->
-                    <form id="updateFileInfo"  action="http://115.159.142.32:20002/upload" method="post" enctype="multipart/form-data">
+                    <form id="updateFileInfo"  action=host+"/upload" method="post" enctype="multipart/form-data">
                     <input class="easyui-textbox" id="updateFile_input" editable="false" data-options="prompt:'请添加需要更新的文件'" style="font-size: 15px;color:gainsboro;width: 90%;height: 30px;"/>
                     <input type='button'  value='浏览' style="background-color:#FFF; border:1px solid #1a7bc9;height:30px; width:9%;" />
                     <input type="file" name="fileField" id="fileField"
@@ -145,6 +145,7 @@
             valueField:'id',
             textField:'text',
             value:-2,
+            method:'get',
             url:'../json/task/taskType.json',
             editable:false
         });
@@ -177,7 +178,7 @@
         console.log(123);
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/task",
+            url: host+"/task",
             type: 'POST',
             contentType: "application/json",
             data: JSON.stringify(reqTask),

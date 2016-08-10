@@ -60,6 +60,7 @@
     $(function(){
         $('#tasktr').tree({
             url: '../json/task/menu.json',
+            method:'get',
             onClick: function (node) {
                 if(!$('#tabs').tabs('exists',node.text)){
                     $('#tabs').tabs('add', {
@@ -76,6 +77,7 @@
 
         $('#terminaltr').tree({
             url: '../json/terminal/menu.json',
+            method:'get',
             onClick: function (node) {
 
                 if(node.text === "终端基础信息" ||node.text === "终端软件版本"){

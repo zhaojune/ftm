@@ -102,6 +102,7 @@
         valueField:'id',
         textField:'text',
         url:'../json/terminal/terminalState.json',
+        method:'get',
         editable:false
     });
 
@@ -138,7 +139,9 @@
 
     $("#tsPartionCompany_select").combobox({
         onChange: function (n,o) {
-            getStores();
+            if($("#tsPartionCompany_select").combobox('getText') !== "全选"){
+                getStores();
+            }
         }
     });
 
@@ -218,9 +221,9 @@
             url: "http://115.159.142.32:20002/store",
             type: 'GET',
             contentType:"application/json",
-            data: JSON.stringify({
+            data: {
                 companyCode:companyId
-            }),
+            },
             success: function (res) {
                 console.log(res);
                 if(res.status_code === 100){
@@ -310,7 +313,7 @@
         console.log($('#tsStore_select').combobox('getValue'));
         $.ajax({
             crossDomain: true,
-            url: "http://115.159.142.32:20002/pos",
+            url: host+"/pos",
             type: 'POST',
             contentType:"application/json",
             data: JSON.stringify(reqDate),
